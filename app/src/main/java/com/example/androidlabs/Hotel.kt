@@ -1,6 +1,4 @@
-package com.example.androidlabs.homeScreen.CardItem
-
-import android.media.Image
+package com.example.androidlabs
 
 
 data class Hotel(
