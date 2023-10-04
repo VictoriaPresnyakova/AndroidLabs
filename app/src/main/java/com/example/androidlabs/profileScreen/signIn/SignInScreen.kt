@@ -21,6 +21,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.NavHostController
+import androidx.navigation.compose.rememberNavController
 import androidx.compose.material.Text as Text1
 
 @Composable
@@ -101,10 +102,4 @@ fun LoginScreen(navController : NavHostController) {
 
 fun performLogin(username: String, password: String) {
 
-}
-
-@Composable
-@Preview
-fun SignInScreen(){
-    //LoginScreen()
 }

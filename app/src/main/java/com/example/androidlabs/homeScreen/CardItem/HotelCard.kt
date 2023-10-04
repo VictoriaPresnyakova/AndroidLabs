@@ -29,7 +29,7 @@ import com.example.androidlabs.Hotel
 import com.example.androidlabs.R
 
 @Composable
-fun Card (hotel: Hotel){
+fun HotelCard (hotel: Hotel){
     androidx.compose.material.Card(
         modifier = Modifier
             .fillMaxWidth()
@@ -101,6 +101,6 @@ fun Card (hotel: Hotel){
 @Composable
 fun CardPreview() {
 
-    Card(Hotel("hotel", R.drawable.img, 4, "location"))
+    HotelCard(Hotel("hotel", R.drawable.img, 4, "location"))
 
 }

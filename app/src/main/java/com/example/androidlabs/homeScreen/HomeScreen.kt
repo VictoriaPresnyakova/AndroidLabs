@@ -18,7 +18,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.androidlabs.R
-import com.example.androidlabs.homeScreen.CardItem.Card
+import com.example.androidlabs.homeScreen.CardItem.HotelCard
 import com.example.androidlabs.Hotel
 import com.example.androidlabs.homeScreen.SearchField.SearchField
 
@@ -55,7 +55,7 @@ fun HomeScreen() {
                 //.verticalScroll(rememberScrollState())
         ){
             items(count = 100 ){
-                Card(Hotel("hotel", R.drawable.img, it % 6, "location"))
+                HotelCard(Hotel("hotel", R.drawable.img, it % 6, "location"))
             }
 
         }
