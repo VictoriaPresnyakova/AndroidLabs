@@ -10,8 +10,8 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
             setContent {
-                ///Navigate()
-                HotelInfo(Hotel("hotel", R.drawable.img_1, 4, "location"))
+                Navigate()
+                //HotelInfo(Hotel("hotel", R.drawable.img_1, 4, "location"))
             }
         }
     }

@@ -25,17 +25,18 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavHostController
 import com.example.androidlabs.Hotel
 import com.example.androidlabs.R
 
 @Composable
-fun HotelCard (hotel: Hotel){
+fun HotelCard (hotel: Hotel, navController: NavHostController){
     androidx.compose.material.Card(
         modifier = Modifier
             .fillMaxWidth()
             .padding(10.dp)
             .clickable {
-                       Log.d("My log", "Clicked")
+                navController.navigate("HotelInfo")
             },
         shape = RoundedCornerShape(15.dp),
         elevation = 5.dp
@@ -101,6 +102,6 @@ fun HotelCard (hotel: Hotel){
 @Composable
 fun CardPreview() {
 
-    HotelCard(Hotel("hotel", R.drawable.img, 4, "location"))
+    //HotelCard(Hotel("hotel", R.drawable.img, 4, "location"))
 
 }

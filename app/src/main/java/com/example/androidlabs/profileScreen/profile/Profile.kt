@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.requiredSize
 import androidx.compose.material.Button
+import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable;
 import androidx.compose.ui.Alignment
@@ -31,6 +32,10 @@ fun ProfileScreen(navController: NavHostController) {
             modifier = Modifier.padding(vertical = 16.dp)
         ){
             Button(
+                colors = ButtonDefaults.buttonColors(
+                    backgroundColor = (Color(red = 0x2A, green = 0x7D, blue = 0xB9, alpha = 0xFF)),
+                    contentColor = Color.White
+                ),
                 onClick = {
                     navController.navigate("login")
                 },
@@ -42,6 +47,10 @@ fun ProfileScreen(navController: NavHostController) {
         }
         Row{
             Button(
+                colors = ButtonDefaults.buttonColors(
+                    backgroundColor = (Color(red = 0x2A, green = 0x7D, blue = 0xB9, alpha = 0xFF)),
+                    contentColor = Color.White
+                ),
                 onClick = { /*TODO*/ },
                 modifier = Modifier
                     .requiredSize(100.dp, 40.dp)

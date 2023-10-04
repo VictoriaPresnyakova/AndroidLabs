@@ -29,12 +29,13 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavHostController
 import com.example.androidlabs.Hotel
 import com.example.androidlabs.R
 import com.example.androidlabs.homeScreen.CardItem.HotelCard
 
 @Composable
-fun HotelInfo(hotel: Hotel) {
+fun HotelInfo(hotel: Hotel, navController: NavHostController) {
     Column (
         modifier = Modifier
             .fillMaxWidth()
@@ -130,7 +131,8 @@ fun HotelInfo(hotel: Hotel) {
         Row(
             modifier = Modifier
                 //.fillMaxHeight()
-                .padding(horizontal = 60.dp),
+                .padding(horizontal = 60.dp)
+                .padding(bottom = 60.dp),
             verticalAlignment = Alignment.Bottom
         ){
             Button(
@@ -139,8 +141,7 @@ fun HotelInfo(hotel: Hotel) {
                     contentColor = Color.White
                 ),
                 onClick = {
-                    //TODO
-                    //navController.navigate("booking")
+                    navController.navigate("booking")
                 },
                 modifier = Modifier
                     .fillMaxWidth()
@@ -156,6 +157,6 @@ fun HotelInfo(hotel: Hotel) {
 @Composable
 fun HotelInfoPreview() {
 
-    HotelInfo(Hotel("hotel", R.drawable.img_1, 4, "location"))
+    //HotelInfo(Hotel("hotel", R.drawable.img_1, 4, "location"))
 
 }

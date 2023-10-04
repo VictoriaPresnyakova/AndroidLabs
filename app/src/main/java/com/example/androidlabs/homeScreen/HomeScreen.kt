@@ -17,13 +17,14 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavHostController
 import com.example.androidlabs.R
 import com.example.androidlabs.homeScreen.CardItem.HotelCard
 import com.example.androidlabs.Hotel
 import com.example.androidlabs.homeScreen.SearchField.SearchField
 
 @Composable
-fun HomeScreen() {
+fun HomeScreen(navController: NavHostController) {
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -44,7 +45,8 @@ fun HomeScreen() {
                 Text(text="Find a Source you want to spent times", color = Color.White)
                 SearchField(
                     modifier = Modifier
-                        .padding(horizontal = 10.dp, vertical = 20.dp)
+                        .padding(horizontal = 10.dp, vertical = 20.dp),
+
                 ) { searchText ->
                     // Обработка введенного текста поиска
                 }
@@ -55,7 +57,7 @@ fun HomeScreen() {
                 //.verticalScroll(rememberScrollState())
         ){
             items(count = 100 ){
-                HotelCard(Hotel("hotel", R.drawable.img, it % 6, "location"))
+                HotelCard(Hotel("hotel", R.drawable.img, it % 6, "location"), navController)
             }
 
         }
@@ -64,5 +66,5 @@ fun HomeScreen() {
 @Preview(showBackground = true)
 @Composable
 fun HotelPreview() {
-    HomeScreen()
+    //HomeScreen()
 }

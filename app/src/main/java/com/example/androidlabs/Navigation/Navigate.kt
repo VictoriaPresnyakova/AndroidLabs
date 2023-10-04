@@ -23,7 +23,6 @@ fun Navigate(){
     val navController = rememberNavController()
     val listItem = listOf(
         NavItem.Home,
-        NavItem.Like,
         NavItem.Profile,
     )
 
