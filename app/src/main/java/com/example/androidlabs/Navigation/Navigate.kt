@@ -24,6 +24,7 @@ fun Navigate(){
     val listItem = listOf(
         NavItem.Home,
         NavItem.Profile,
+        NavItem.AdminPanel
     )
 
     Scaffold(bottomBar = {
