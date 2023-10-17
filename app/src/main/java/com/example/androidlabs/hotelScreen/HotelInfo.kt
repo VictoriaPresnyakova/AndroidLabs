@@ -2,6 +2,7 @@ package com.example.androidlabs.hotelScreen
 
 import androidx.compose.animation.shrinkVertically
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.ScrollState
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -9,6 +10,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.rememberScrollState
@@ -26,10 +28,12 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
+import androidx.navigation.compose.rememberNavController
 import com.example.androidlabs.Hotel
 import com.example.androidlabs.R
 import com.example.androidlabs.homeScreen.CardItem.HotelCard
@@ -59,6 +63,7 @@ fun HotelInfo(hotel: Hotel, navController: NavHostController) {
             Row (
                 modifier = Modifier
                     .fillMaxWidth(),
+
                 horizontalArrangement = Arrangement.SpaceEvenly
             ){
                 Text(text = hotel.name)
@@ -127,17 +132,14 @@ fun HotelInfo(hotel: Hotel, navController: NavHostController) {
                 Text(text = "inf")
             }
         }
-        //Divider(color = Color.Black, thickness = 1.dp)
         Row(
-            modifier = Modifier
-                //.fillMaxHeight()
-                .padding(horizontal = 60.dp)
+           modifier = Modifier
                 .padding(bottom = 60.dp),
             verticalAlignment = Alignment.Bottom
         ){
             Button(
                 colors = ButtonDefaults.buttonColors(
-                    backgroundColor = (Color(red = 0x2A, green = 0x7D, blue = 0xB9, alpha = 0xFF)),
+                    backgroundColor = (colorResource(id = R.color.figma_blue)),
                     contentColor = Color.White
                 ),
                 onClick = {
@@ -145,6 +147,8 @@ fun HotelInfo(hotel: Hotel, navController: NavHostController) {
                 },
                 modifier = Modifier
                     .fillMaxWidth()
+                    .padding(16.dp, 16.dp, 16.dp, 5.dp)
+                    .height(50.dp)
             ) {
                 Text("Select Room")
             }
@@ -156,7 +160,7 @@ fun HotelInfo(hotel: Hotel, navController: NavHostController) {
 @Preview(showBackground = true)
 @Composable
 fun HotelInfoPreview() {
-
-    //HotelInfo(Hotel("hotel", R.drawable.img_1, 4, "location"))
+    val navController = rememberNavController()
+    HotelInfo(Hotel("hotel", R.drawable.img_1, 4, "location", "info", 4000), navController)
 
 }

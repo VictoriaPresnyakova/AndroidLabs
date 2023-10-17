@@ -23,6 +23,7 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
+import com.example.androidlabs.profileScreen.profile.ProfileScreen
 import androidx.compose.material.Text as Text1
 
 @Composable
@@ -34,4 +35,11 @@ fun LoginScreen(navController: NavHostController) {
     ) {
         SignInCard(navController)
     }
+}
+
+@Composable
+@Preview
+fun LoginScreenPreview(){
+    val navController = rememberNavController()
+    LoginScreen(navController = navController)
 }

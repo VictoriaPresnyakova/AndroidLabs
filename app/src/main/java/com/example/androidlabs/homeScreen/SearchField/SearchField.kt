@@ -35,7 +35,7 @@ fun SearchField(
         modifier = modifier
             .clip(RoundedCornerShape(30.dp))
             .fillMaxWidth()
-            .background(Color.LightGray)
+            .background(Color.White)
         ,
         ) {
         Row(

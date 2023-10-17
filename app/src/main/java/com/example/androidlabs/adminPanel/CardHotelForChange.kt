@@ -56,7 +56,7 @@ fun CardHotelForChange(item: Hotel, navController: NavHostController) {
                 .padding(start = 16.dp)
         ) {
             item.name?.let { Text(text = it, fontSize = 20.sp) }
-            Text(text = "${item.location} USD", color = Color.Red, fontSize = 16.sp)
+            Text(text = "${item.location}", color = Color.Red, fontSize = 16.sp)
         }
 
         Image(
@@ -66,8 +66,8 @@ fun CardHotelForChange(item: Hotel, navController: NavHostController) {
                 .size(40.dp)
                 .padding(10.dp)
                 .clickable {
-                    val sneakerItemString = Gson().toJson(item)
-                    navController.navigate("changeSneaker/${sneakerItemString}")
+                    val hotelItemString = Gson().toJson(item)
+                    navController.navigate("changeHotel/${hotelItemString}")
                 }
         )
 
@@ -89,7 +89,7 @@ fun CardHotelForChange(item: Hotel, navController: NavHostController) {
 
 @Composable
 @Preview
-fun CardSneakerLikePreview(){
+fun CardHotelLikePreview(){
     val navController = rememberNavController()
-    CardHotelForChange(Hotel("Hotel", R.drawable.img, 5, "location"), navController)
+    CardHotelForChange(Hotel("Hotel", R.drawable.img, 5, "location", "info", 4000), navController)
 }

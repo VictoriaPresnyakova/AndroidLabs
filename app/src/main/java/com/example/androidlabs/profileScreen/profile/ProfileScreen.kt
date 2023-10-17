@@ -18,71 +18,76 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.res.colorResource
+import com.example.androidlabs.R
 
 @Composable
 fun ProfileScreen(navController: NavHostController) {
     Column(
         modifier = Modifier
-            .fillMaxSize()
-            .background(Color.White),
+            .fillMaxWidth()
+            .fillMaxHeight()
+            .padding(16.dp),
         verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.CenterHorizontally
     ){
         Row(
-            modifier = Modifier
-                .clip(RoundedCornerShape(20.dp))
         ){
             Button(
                 colors = ButtonDefaults.buttonColors(
-                    backgroundColor = (Color(red = 0x2A, green = 0x7D, blue = 0xB9, alpha = 0xFF)),
+                    backgroundColor = (colorResource(id = R.color.figma_blue)),
                     contentColor = Color.White
                 ),
                 onClick = {
                     navController.navigate("person")
                 },
                 modifier = Modifier
-                    .requiredSize(300.dp, 40.dp)
+                    .fillMaxWidth()
+                    .padding(16.dp, 0.dp, 16.dp, 0.dp)
+                    .height(50.dp)
             ) {
                 Text(text = "Profile")
             }
         }
         Spacer(modifier = Modifier.height(16.dp))
         Row(
-            modifier = Modifier
-                .clip(RoundedCornerShape(20.dp))
         ){
             Button(
                 colors = ButtonDefaults.buttonColors(
-                    backgroundColor = (Color(red = 0x2A, green = 0x7D, blue = 0xB9, alpha = 0xFF)),
+                    backgroundColor = (colorResource(id = R.color.figma_blue)),
                     contentColor = Color.White
                 ),
                 onClick = {
                     navController.navigate("login")
                 },
                 modifier = Modifier
-                    .requiredSize(300.dp, 40.dp)
+                    .fillMaxWidth()
+                    .padding(16.dp, 0.dp, 16.dp, 0.dp)
+                    .height(50.dp)
             ) {
                 Text(text = "Sign In")
             }
         }
         Spacer(modifier = Modifier.height(16.dp))
         Row(
-            modifier = Modifier
-                .clip(RoundedCornerShape(20.dp))
         ){
             Button(
                 colors = ButtonDefaults.buttonColors(
-                    backgroundColor = (Color(red = 0x2A, green = 0x7D, blue = 0xB9, alpha = 0xFF)),
+                    backgroundColor = (colorResource(id = R.color.figma_blue)),
                     contentColor = Color.White
                 ),
                 onClick = {
                     navController.navigate("signup")
                 },
                 modifier = Modifier
-                    .requiredSize(300.dp, 40.dp)
+                    .fillMaxWidth()
+                    .padding(16.dp, 0.dp, 16.dp, 0.dp)
+                    .height(50.dp)
             ) {
                 Text(text = "Sign Up")
             }
@@ -91,7 +96,7 @@ fun ProfileScreen(navController: NavHostController) {
 }
 
 @Composable
-@Preview
+@Preview(showBackground = true)
 fun ProfileScreenPreview(){
     val navController = rememberNavController()
     ProfileScreen(navController = navController)

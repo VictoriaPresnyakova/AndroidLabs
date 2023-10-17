@@ -51,7 +51,6 @@ fun AddPanel(){
             .fillMaxWidth()
             .padding(16.dp)
             .clip(RoundedCornerShape(16.dp))
-            .background((Color(red = 0x2A, green = 0x7D, blue = 0xB9, alpha = 0xFF)))
             .verticalScroll(rememberScrollState())
     ) {
         Column(
@@ -70,7 +69,7 @@ fun AddPanel(){
             )
             Button(
                 colors = ButtonDefaults.buttonColors(
-                    backgroundColor = Color(red = 0x2A, green = 0x7D, blue = 0xB9, alpha = 0xFF),
+                    backgroundColor = colorResource(id = R.color.figma_blue),
                     contentColor = Color.White
                 ),
                 onClick = {
@@ -79,6 +78,7 @@ fun AddPanel(){
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(16.dp, 0.dp, 16.dp, 16.dp)
+                    .height(50.dp)
             ) {
                 Text("Add image")
             }
@@ -103,16 +103,15 @@ fun AddPanel(){
                 ),
                 placeholder = {
                     Text(
-                        text = "Brand",
+                        text = "Stars",
                         style = TextStyle(fontSize = 12.sp)
                     )
                 }
             )
-
             Spacer(modifier = Modifier.height(16.dp))
 
             TextField(
-                value = " ",
+                value = "",
                 onValueChange = { },
                 modifier = Modifier
                     .fillMaxWidth()
@@ -131,7 +130,7 @@ fun AddPanel(){
                 ),
                 placeholder = {
                     Text(
-                        text = "Model",
+                        text = "Location",
                         style = TextStyle(fontSize = 12.sp)
                     )
                 }
@@ -140,13 +139,14 @@ fun AddPanel(){
             Spacer(modifier = Modifier.height(16.dp))
 
             TextField(
-                value = " ",
+                value = "",
                 onValueChange = { },
                 modifier = Modifier
                     .fillMaxWidth()
-                    .height(150.dp)
+                    .height(50.dp)
                     .padding(16.dp, 0.dp)
                     .border(1.dp, Color.Gray, RoundedCornerShape(4.dp)),
+                singleLine = true,
                 keyboardOptions = KeyboardOptions(
                     keyboardType = KeyboardType.Text,
                     imeAction = ImeAction.Next
@@ -158,12 +158,11 @@ fun AddPanel(){
                 ),
                 placeholder = {
                     Text(
-                        text = "Description",
+                        text = "Info",
                         style = TextStyle(fontSize = 12.sp)
                     )
                 }
             )
-
             Spacer(modifier = Modifier.height(16.dp))
 
             TextField(
@@ -191,10 +190,37 @@ fun AddPanel(){
                     )
                 }
             )
+            Spacer(modifier = Modifier.height(16.dp))
+
+            TextField(
+                value = "",
+                onValueChange = { },
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(50.dp)
+                    .padding(16.dp, 0.dp)
+                    .border(1.dp, Color.Gray, RoundedCornerShape(4.dp)),
+                singleLine = true,
+                keyboardOptions = KeyboardOptions(
+                    keyboardType = KeyboardType.Text,
+                    imeAction = ImeAction.Next
+                ),
+                keyboardActions = KeyboardActions(
+                    onNext = {
+
+                    }
+                ),
+                placeholder = {
+                    Text(
+                        text = "Info",
+                        style = TextStyle(fontSize = 12.sp)
+                    )
+                }
+            )
 
             Button(
                 colors = ButtonDefaults.buttonColors(
-                    backgroundColor =(Color(red = 0x2A, green = 0x7D, blue = 0xB9, alpha = 0xFF)),
+                    backgroundColor =colorResource(id = R.color.figma_blue),
                     contentColor = Color.White
                 ),
                 onClick = {
@@ -203,8 +229,9 @@ fun AddPanel(){
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(16.dp)
+                    .height(50.dp)
             ) {
-                Text("Add sneaker")
+                Text("Add hotel")
             }
         }
     }

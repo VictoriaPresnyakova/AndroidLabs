@@ -34,6 +34,9 @@ import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.compose.rememberNavController
+import com.example.androidlabs.R
+import com.example.androidlabs.profileScreen.signIn.LoginScreen
 
 @Composable
 @Preview
@@ -48,7 +51,6 @@ fun SignUpCard() {
             .fillMaxWidth()
             .padding(16.dp)
             .clip(RoundedCornerShape(16.dp))
-            .background((Color(red = 0x2A, green = 0x7D, blue = 0xB9, alpha = 0xFF)))
     ){
         Column(
             modifier = Modifier.fillMaxWidth(),
@@ -207,18 +209,25 @@ fun SignUpCard() {
 
             Button(
                 colors = ButtonDefaults.buttonColors(
-                    backgroundColor = Color.White,
-                    contentColor = Color.Black
+                    backgroundColor = (colorResource(id = R.color.figma_blue)),
+                    contentColor = Color.White
                 ),
                 onClick = {
 
                 },
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(16.dp)
+                    .padding(16.dp, 16.dp, 16.dp, 0.dp)
+                    .height(50.dp)
             ) {
                 Text("Sign Up")
             }
         }
     }
+}
+
+@Composable
+@Preview(showBackground = true)
+fun SignUpScreenPreview(){
+    SignUpScreen()
 }

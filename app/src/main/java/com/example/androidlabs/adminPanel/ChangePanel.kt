@@ -34,9 +34,9 @@ fun ChangePanel(navHostController: NavHostController){
             ) {
                 itemsIndexed(
                 listOf(
-                    Hotel("Hotel", R.drawable.img, 5, "location"),
-                    Hotel("Hotel", R.drawable.img, 5, "location"),
-                    Hotel("Hotel", R.drawable.img, 5, "location")
+                    Hotel("Hotel", R.drawable.img, 5, "location", "info", 4000),
+                    Hotel("Hotel", R.drawable.img, 5, "location", "info", 4000),
+                    Hotel("Hotel", R.drawable.img, 5, "location", "info", 4000)
                 )
                 ){_, item->
                 CardHotelForChange(item = item, navHostController)

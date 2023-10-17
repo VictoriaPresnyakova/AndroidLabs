@@ -25,7 +25,7 @@ fun NavController(navController: NavHostController) {
         startDestination = NavItem.Home.route
     ) {
         composable(NavItem.HotelInfo.route) {
-            HotelInfo(Hotel("hotel", R.drawable.img_1, 4, "location"), navController)
+            HotelInfo(Hotel("hotel", R.drawable.img_1, 4, "location", "info", 4000), navController)
         }
         composable(NavItem.Home.route) {
             HomeScreen(navController)

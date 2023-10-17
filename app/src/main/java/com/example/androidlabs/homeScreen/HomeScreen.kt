@@ -13,11 +13,13 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
+import androidx.navigation.compose.rememberNavController
 import com.example.androidlabs.R
 import com.example.androidlabs.homeScreen.CardItem.HotelCard
 import com.example.androidlabs.Hotel
@@ -31,7 +33,7 @@ fun HomeScreen(navController: NavHostController) {
             .background(Color.White)
     ) {
         Box(modifier = Modifier
-            .background(Color(red = 0x2A, green = 0x7D, blue = 0xB9, alpha = 0xFF))
+            .background(colorResource(id = R.color.figma_blue))
             .fillMaxHeight(0.18f)
         ){
             Column(
@@ -57,7 +59,7 @@ fun HomeScreen(navController: NavHostController) {
                 //.verticalScroll(rememberScrollState())
         ){
             items(count = 100 ){
-                HotelCard(Hotel("hotel", R.drawable.img, it % 6, "location"), navController)
+                HotelCard(Hotel("hotel", R.drawable.img, it % 6, "location", "info", 4000), navController)
             }
 
         }
@@ -66,5 +68,6 @@ fun HomeScreen(navController: NavHostController) {
 @Preview(showBackground = true)
 @Composable
 fun HotelPreview() {
-    //HomeScreen()
+    var nc = rememberNavController()
+    HomeScreen(nc)
 }

@@ -12,13 +12,16 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
+import androidx.navigation.compose.rememberNavController
+import com.example.androidlabs.profileScreen.signIn.LoginScreen
 
 @Composable
 fun AdminPanel(navHostController: NavHostController) {
     var isAddPanelVisible by remember { mutableStateOf(false) }
-    var isChangePanelVisible by remember { mutableStateOf(false) }
+    var isChangePanelVisible by remember { mutableStateOf(true) }
 
     Column(
         modifier = Modifier
@@ -45,4 +48,11 @@ fun AdminPanel(navHostController: NavHostController) {
             ChangePanel(navHostController)
         }
     }
+}
+
+@Composable
+@Preview(showBackground = true)
+fun SignInScreenPreview(){
+    val navController = rememberNavController()
+    AdminPanel(navController)
 }
