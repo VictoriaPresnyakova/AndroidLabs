@@ -1,5 +1,6 @@
 package com.example.androidlabs.homeScreen
 
+import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -10,6 +11,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -26,12 +28,13 @@ import com.example.androidlabs.R
 import com.example.androidlabs.homeScreen.CardItem.HotelCard
 import com.example.androidlabs.Hotel
 import com.example.androidlabs.homeScreen.SearchField.SearchField
+import kotlinx.coroutines.flow.count
 
 @Composable
 fun HomeScreen(navController: NavHostController) {
     val context = LocalContext.current
-
-    val List = AppDatabase.getInstance(context).hotelDao()
+    val List = AppDatabase.getInstance(context).hotelDao().getAllHotelss().collectAsState(initial = emptyList()).value
+    Log.d("MyLog", List.toString())
     Column(
         modifier = Modifier
             .fillMaxSize()
