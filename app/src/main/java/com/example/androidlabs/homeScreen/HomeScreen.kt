@@ -13,6 +13,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
@@ -20,6 +21,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
+import com.example.androidlabs.DB.AppDatabase
 import com.example.androidlabs.R
 import com.example.androidlabs.homeScreen.CardItem.HotelCard
 import com.example.androidlabs.Hotel
@@ -27,6 +29,9 @@ import com.example.androidlabs.homeScreen.SearchField.SearchField
 
 @Composable
 fun HomeScreen(navController: NavHostController) {
+    val context = LocalContext.current
+
+    val List = AppDatabase.getInstance(context).hotelDao()
     Column(
         modifier = Modifier
             .fillMaxSize()
