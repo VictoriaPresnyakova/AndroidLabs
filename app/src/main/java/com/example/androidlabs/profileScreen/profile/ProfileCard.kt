@@ -46,7 +46,7 @@ fun ProfileCard() {
         ){
             Image(
                 contentScale = ContentScale.Crop,
-                painter = painterResource(id = R.drawable.img_2),
+                painter = painterResource(id = R.drawable.img_1),
                 contentDescription = null,
                 modifier = Modifier
                     .size(150.dp)
@@ -56,13 +56,13 @@ fun ProfileCard() {
             )
 
             Text(
-                text = "Шайлушай",
+                text = "User",
                 fontSize = 18.sp,
                 fontWeight = FontWeight.Bold
             )
 
             Text(
-                text = "shailushai@example.com",
+                text = "user@example.com",
                 fontSize = 16.sp,
                 color = Color.Gray
             )
