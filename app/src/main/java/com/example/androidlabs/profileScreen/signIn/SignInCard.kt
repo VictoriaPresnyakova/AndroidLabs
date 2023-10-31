@@ -37,12 +37,14 @@ import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
+import com.example.androidlabs.DB.viewModels.UserViewModel
 import com.example.androidlabs.R
 
 @Composable
-fun SignInCard(navController: NavHostController) {
+fun SignInCard(navController: NavHostController, userViewModel: UserViewModel = viewModel(factory = UserViewModel.factory)) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -55,8 +57,8 @@ fun SignInCard(navController: NavHostController) {
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center
         ){
-            var username by remember { mutableStateOf("") }
-            var password by remember { mutableStateOf("") }
+            var isEmailValid by remember { mutableStateOf(true) }
+            var isPasswordValid by remember { mutableStateOf(true) }
 
             Text(
                 text = "Sign In",
@@ -67,8 +69,10 @@ fun SignInCard(navController: NavHostController) {
             )
 
             TextField(
-                value = username,
-                onValueChange = { username = it },
+                value = userViewModel.email.value,
+                onValueChange = {
+                    userViewModel.email.value = it
+                    isEmailValid = userViewModel.isValidEmail(it)},
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(50.dp)
@@ -91,12 +95,21 @@ fun SignInCard(navController: NavHostController) {
                     )
                 }
             )
-
+            if (!isEmailValid) {
+                Text(
+                    text = "Invalid email format",
+                    color = Color.Red,
+                    style = TextStyle(fontSize = 12.sp)
+                )
+            }
             Spacer(modifier = Modifier.height(16.dp))
 
             TextField(
-                value = password,
-                onValueChange = { password = it },
+                value = userViewModel.password.value,
+                onValueChange = {
+                    userViewModel.password.value = it
+                    isPasswordValid = it.isNotEmpty()
+                },
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(50.dp)
@@ -121,14 +134,21 @@ fun SignInCard(navController: NavHostController) {
                     )
                 }
             )
-
+            if (!isPasswordValid) {
+                Text(
+                    text = "Password is required",
+                    color = Color.Red,
+                    style = TextStyle(fontSize = 12.sp)
+                )
+            }
             Button(
                 colors = ButtonDefaults.buttonColors(
                     backgroundColor = (colorResource(id = R.color.figma_blue)),
                     contentColor = Color.White
                 ),
                 onClick = {
-
+                    userViewModel.authUser()
+                    navController.navigate("person")
                 },
                 modifier = Modifier
                     .fillMaxWidth()

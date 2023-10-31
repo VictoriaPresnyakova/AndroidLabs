@@ -34,14 +34,15 @@ import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavHostController
 
 @Composable
-fun SignUpScreen() {
+fun SignUpScreen(navHostController: NavHostController) {
     Column(modifier = Modifier
         .fillMaxSize()
         .background(Color.White),
         verticalArrangement = Arrangement.Center
     ) {
-        SignUpCard()
+        SignUpCard(navHostController)
     }
 }

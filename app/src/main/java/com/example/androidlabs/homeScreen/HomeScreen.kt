@@ -9,6 +9,8 @@ import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
@@ -21,9 +23,11 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.example.androidlabs.DB.AppDatabase
+import com.example.androidlabs.DB.viewModels.HotelViewModel
 import com.example.androidlabs.R
 import com.example.androidlabs.homeScreen.CardItem.HotelCard
 import com.example.androidlabs.Hotel
@@ -31,14 +35,14 @@ import com.example.androidlabs.homeScreen.SearchField.SearchField
 import kotlinx.coroutines.flow.count
 
 @Composable
-fun HomeScreen(navController: NavHostController) {
-    val context = LocalContext.current
-    val List = AppDatabase.getInstance(context).hotelDao().getAllHotelss().collectAsState(initial = emptyList()).value
-    Log.d("MyLog", List.toString())
+fun HomeScreen(navController: NavHostController, hotelViewModel: HotelViewModel = viewModel(factory = HotelViewModel.factory)) {
+    val list = hotelViewModel.HotelList.collectAsState(initial = emptyList()).value
+    //Log.d("MyLog", list.toString())
     Column(
         modifier = Modifier
             .fillMaxSize()
             .background(Color.White)
+            //.padding(bottom = 60.dp)
     ) {
         Box(modifier = Modifier
             .background(colorResource(id = R.color.figma_blue))
@@ -62,12 +66,14 @@ fun HomeScreen(navController: NavHostController) {
                 }
             }
         }
-        LazyColumn (
+        Column (
             modifier = Modifier
-                //.verticalScroll(rememberScrollState())
+                .verticalScroll(rememberScrollState())
+            .padding(bottom = 60.dp)
+
         ){
-            items(count = 100 ){
-                HotelCard(Hotel("hotel", R.drawable.img, it % 6, "location", "info", 4000), navController)
+            for (item in list){
+                HotelCard(item, navController)
             }
 
         }

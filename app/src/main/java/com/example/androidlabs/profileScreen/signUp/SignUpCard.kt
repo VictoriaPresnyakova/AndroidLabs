@@ -34,18 +34,15 @@ import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
+import com.example.androidlabs.DB.viewModels.UserViewModel
 import com.example.androidlabs.R
 import com.example.androidlabs.profileScreen.signIn.LoginScreen
 
 @Composable
-@Preview
-fun SignUpCard() {
-    var username by remember { mutableStateOf("") }
-    var password by remember { mutableStateOf("") }
-    var sex by remember { mutableStateOf("") }
-    var name by remember { mutableStateOf("") }
-    var surname by remember { mutableStateOf("") }
+fun SignUpCard(navHostController: NavHostController, userViewModel: UserViewModel = viewModel(factory = UserViewModel.factory)) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -68,36 +65,8 @@ fun SignUpCard() {
             Spacer(modifier = Modifier.height(16.dp))
 
             TextField(
-                value = username,
-                onValueChange = { username = it },
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(50.dp)
-                    .padding(16.dp, 0.dp)
-                    .border(1.dp, Color.Gray, RoundedCornerShape(4.dp)),
-                singleLine = true,
-                keyboardOptions = KeyboardOptions(
-                    keyboardType = KeyboardType.Text,
-                    imeAction = ImeAction.Next
-                ),
-                keyboardActions = KeyboardActions(
-                    onNext = {
-
-                    }
-                ),
-                placeholder = {
-                    Text(
-                        text = "Username",
-                        style = TextStyle(fontSize = 12.sp)
-                    )
-                }
-            )
-
-            Spacer(modifier = Modifier.height(16.dp))
-
-            TextField(
-                value = name,
-                onValueChange = { name = it },
+                value = userViewModel.name.value,
+                onValueChange = { userViewModel.name.value = it },
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(50.dp)
@@ -124,8 +93,8 @@ fun SignUpCard() {
             Spacer(modifier = Modifier.height(16.dp))
 
             TextField(
-                value = surname,
-                onValueChange = { surname = it },
+                value = userViewModel.surname.value,
+                onValueChange = { userViewModel.surname.value = it },
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(50.dp)
@@ -152,8 +121,8 @@ fun SignUpCard() {
             Spacer(modifier = Modifier.height(16.dp))
 
             TextField(
-                value = sex,
-                onValueChange = { sex = it },
+                value = userViewModel.email.value,
+                onValueChange = { userViewModel.email.value = it },
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(50.dp)
@@ -171,7 +140,7 @@ fun SignUpCard() {
                 ),
                 placeholder = {
                     Text(
-                        text = "Sex",
+                        text = "Email",
                         style = TextStyle(fontSize = 12.sp)
                     )
                 }
@@ -180,20 +149,18 @@ fun SignUpCard() {
             Spacer(modifier = Modifier.height(16.dp))
 
             TextField(
-                value = password,
-                onValueChange = { password = it },
+                value = userViewModel.password.value,
+                onValueChange = { userViewModel.password.value = it },
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(50.dp)
                     .padding(16.dp, 0.dp)
                     .border(1.dp, Color.Gray, RoundedCornerShape(4.dp)),
                 singleLine = true,
-                visualTransformation = PasswordVisualTransformation(),
                 keyboardOptions = KeyboardOptions(
                     keyboardType = KeyboardType.Text,
                     imeAction = ImeAction.Next
                 ),
-
                 keyboardActions = KeyboardActions(
                     onNext = {
 
@@ -207,13 +174,16 @@ fun SignUpCard() {
                 }
             )
 
+            Spacer(modifier = Modifier.height(16.dp))
+
             Button(
                 colors = ButtonDefaults.buttonColors(
                     backgroundColor = (colorResource(id = R.color.figma_blue)),
                     contentColor = Color.White
                 ),
                 onClick = {
-
+                    userViewModel.createUser()
+                    navHostController.navigate("login")
                 },
                 modifier = Modifier
                     .fillMaxWidth()
@@ -226,8 +196,3 @@ fun SignUpCard() {
     }
 }
 
-@Composable
-@Preview(showBackground = true)
-fun SignUpScreenPreview(){
-    SignUpScreen()
-}

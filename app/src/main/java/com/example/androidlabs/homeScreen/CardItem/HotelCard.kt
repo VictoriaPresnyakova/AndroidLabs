@@ -26,8 +26,9 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
-import com.example.androidlabs.Hotel
+import com.example.androidlabs.DB.models.Hotel
 import com.example.androidlabs.R
+import com.google.gson.Gson
 
 @Composable
 fun HotelCard (hotel: Hotel, navController: NavHostController){
@@ -36,7 +37,8 @@ fun HotelCard (hotel: Hotel, navController: NavHostController){
             .fillMaxWidth()
             .padding(10.dp)
             .clickable {
-                navController.navigate("HotelInfo")
+                val hotelItemString = Gson().toJson(hotel)
+                navController.navigate("HotelInfo/${hotelItemString}")
             },
         shape = RoundedCornerShape(15.dp),
         elevation = 5.dp

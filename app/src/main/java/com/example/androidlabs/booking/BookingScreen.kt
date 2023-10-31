@@ -10,7 +10,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.Button
@@ -34,12 +33,15 @@ import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
+import com.example.androidlabs.DB.models.Hotel
+import com.example.androidlabs.DB.viewModels.OrderViewModel
+import com.example.androidlabs.GlobalUser
 import com.example.androidlabs.R
-import com.example.androidlabs.profileScreen.signIn.LoginScreen
 
 @Composable
-fun BookingScreen() {
+fun BookingScreen(orderViewModel: OrderViewModel, hotel: Hotel, navHostController: NavHostController) {
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -49,7 +51,7 @@ fun BookingScreen() {
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        var room by remember { mutableStateOf("") }
+        var rooms by remember { mutableStateOf("") }
         var date by remember { mutableStateOf("") }
 
         Text(
@@ -61,8 +63,8 @@ fun BookingScreen() {
         )
 
         TextField(
-            value = room,
-            onValueChange = { room = it },
+            value = orderViewModel.rooms.value,
+            onValueChange = { orderViewModel.rooms.value = it},
             modifier = Modifier
                 .fillMaxWidth()
                 .height(50.dp)
@@ -80,7 +82,7 @@ fun BookingScreen() {
             ),
             placeholder = {
                 Text(
-                    text = "Room",
+                    text = "Rooms",
                     style = TextStyle(fontSize = 12.sp)
                 )
             }
@@ -122,21 +124,27 @@ fun BookingScreen() {
                 contentColor = Color.White
             ),
             onClick = {
-
+                //if(GlobalUser.getInstance().getUser() != null){
+                    orderViewModel.selectedItem = hotel
+                    orderViewModel.createOrder()
+                    navHostController.navigate("home")
+                //}else{
+                  //  navHostController.navigate("login")
+               // }
             },
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(16.dp, 16.dp, 16.dp, 0.dp)
                 .height(50.dp)
         ) {
-            Text("Payment")
+            Text("Book")
         }
         }
     }
 
-@Composable
-@Preview(showBackground = true)
-fun BookingScreenPreview(){
-    val navController = rememberNavController()
-    BookingScreen()
-}
+//@Composable
+//@Preview(showBackground = true)
+//fun BookingScreenPreview(){
+//    val navController = rememberNavController()
+//    BookingScreen()
+//}

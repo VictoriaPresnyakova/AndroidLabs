@@ -1,5 +1,6 @@
 package com.example.androidlabs.hotelScreen
 
+import android.util.Log
 import androidx.compose.animation.shrinkVertically
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.ScrollState
@@ -34,12 +35,15 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
-import com.example.androidlabs.Hotel
+import com.example.androidlabs.DB.models.Hotel
 import com.example.androidlabs.R
 import com.example.androidlabs.homeScreen.CardItem.HotelCard
+import com.google.gson.Gson
 
 @Composable
 fun HotelInfo(hotel: Hotel, navController: NavHostController) {
+    Log.d("MyLog", hotel.toString())
+
     Column (
         modifier = Modifier
             .fillMaxWidth()
@@ -143,7 +147,8 @@ fun HotelInfo(hotel: Hotel, navController: NavHostController) {
                     contentColor = Color.White
                 ),
                 onClick = {
-                    navController.navigate("booking")
+                    val hotelItemString = Gson().toJson(hotel)
+                    navController.navigate("booking/${hotelItemString}")
                 },
                 modifier = Modifier
                     .fillMaxWidth()
@@ -161,6 +166,6 @@ fun HotelInfo(hotel: Hotel, navController: NavHostController) {
 @Composable
 fun HotelInfoPreview() {
     val navController = rememberNavController()
-    HotelInfo(Hotel("hotel", R.drawable.img_1, 4, "location", "info", 4000), navController)
+   // HotelInfo(Hotel("hotel", R.drawable.img_1, 4, "location", "info", 4000), navController)
 
 }

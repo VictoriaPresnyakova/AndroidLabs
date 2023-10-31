@@ -13,6 +13,8 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.Button
+import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -27,17 +29,19 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavHostController
+import com.example.androidlabs.GlobalUser
 import com.example.androidlabs.R
 
-@Preview
 @Composable
-fun ProfileCard() {
+fun ProfileCard(navHostController: NavHostController) {
+    val globalUser = GlobalUser.getInstance().getUser()
     Row(
         modifier = Modifier
             .fillMaxWidth()
             .padding(16.dp)
             .clip(RoundedCornerShape(16.dp))
-            .background(Color.LightGray)
+            .background(colorResource(id = R.color.figma))
     ){
         Column(
             modifier = Modifier.fillMaxWidth(),
@@ -55,17 +59,32 @@ fun ProfileCard() {
                     .clip(CircleShape)
             )
 
-            Text(
-                text = "User",
-                fontSize = 18.sp,
-                fontWeight = FontWeight.Bold
-            )
-
-            Text(
-                text = "user@example.com",
-                fontSize = 16.sp,
-                color = Color.Gray
-            )
+            if (globalUser != null) {
+                Text(
+                    text = "${globalUser.name} ${globalUser.surname}",
+                    fontSize = 18.sp,
+                    fontWeight = FontWeight.Bold
+                )
+                Text(
+                    text = globalUser.email,
+                    fontSize = 16.sp,
+                    color = Color.Gray
+                )
+            }
+            Button(
+                colors = ButtonDefaults.buttonColors(
+                    backgroundColor = colorResource(id = R.color.figma_blue),
+                    contentColor = Color.White
+                ),
+                onClick = {
+                    navHostController.navigate("myorder")
+                },
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(16.dp, 16.dp, 16.dp, 0.dp)
+            ) {
+                Text("My order")
+            }
         }
     }
 }
