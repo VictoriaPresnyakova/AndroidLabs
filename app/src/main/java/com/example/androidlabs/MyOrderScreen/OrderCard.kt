@@ -47,8 +47,10 @@ fun OrderCard(order: Order, orderViewModel: OrderViewModel){
             verticalArrangement = Arrangement.Center
         ){
             Text("№ ${order.orderId}")
-            Text("${Date(order.dateFrom)}")
-            Text("${Date(order.dateTo)}")
+            Text("From " + order.dateFrom)
+            Text("To " + order.dateTo)
+            Text("Sum ${order.total}")
+
 
             Row(){
 

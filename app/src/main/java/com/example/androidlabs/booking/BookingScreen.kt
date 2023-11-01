@@ -1,5 +1,6 @@
 package com.example.androidlabs.booking
 
+import android.widget.DatePicker
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
@@ -29,16 +30,18 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
-import androidx.compose.ui.text.input.PasswordVisualTransformation
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
-import androidx.navigation.compose.rememberNavController
 import com.example.androidlabs.DB.models.Hotel
 import com.example.androidlabs.DB.viewModels.OrderViewModel
 import com.example.androidlabs.GlobalUser
 import com.example.androidlabs.R
+import android.app.DatePickerDialog
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.text.style.TextAlign
+import java.util.Calendar
+import java.util.Date
 
 @Composable
 fun BookingScreen(orderViewModel: OrderViewModel, hotel: Hotel, navHostController: NavHostController) {
@@ -51,8 +54,6 @@ fun BookingScreen(orderViewModel: OrderViewModel, hotel: Hotel, navHostControlle
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        var rooms by remember { mutableStateOf("") }
-        var date by remember { mutableStateOf("") }
 
         Text(
             text = "Booking",
@@ -90,33 +91,101 @@ fun BookingScreen(orderViewModel: OrderViewModel, hotel: Hotel, navHostControlle
 
         Spacer(modifier = Modifier.height(16.dp))
 
-        TextField(
-            value = date,
-            onValueChange = { date = it },
+// Fetching the Local Context
+        val mContext = LocalContext.current
+
+        // Declaring integer values
+        // for year, month and day
+        val mYearFrom: Int
+        val mMonthFrom: Int
+        val mDayFrom: Int
+
+        // Initializing a Calendar
+        val mCalendarFrom = Calendar.getInstance()
+
+        // Fetching current year, month and day
+        mYearFrom = mCalendarFrom.get(Calendar.YEAR)
+        mMonthFrom = mCalendarFrom.get(Calendar.MONTH)
+        mDayFrom = mCalendarFrom.get(Calendar.DAY_OF_MONTH)
+
+        mCalendarFrom.time = Date()
+
+        // Declaring a string value to
+        // store date in string format
+        val mDateFrom = remember { mutableStateOf("") }
+
+        // Declaring DatePickerDialog and setting
+        // initial values as current values (present year, month and day)
+        val mDatePickerDialogFrom = DatePickerDialog(
+            mContext,
+            { _: DatePicker, mYear: Int, mMonth: Int, mDayOfMonth: Int ->
+                mDateFrom.value = "$mDayOfMonth/${mMonth+1}/$mYear"
+            }, mYearFrom, mMonthFrom, mDayFrom
+        )
+
+
+            // Creating a button that on
+            // click displays/shows the DatePickerDialog
+        Button(
+            colors = ButtonDefaults.buttonColors(
+                backgroundColor = (colorResource(id = R.color.figma_blue)),
+                contentColor = Color.White
+            ),
+            onClick = {
+                mDatePickerDialogFrom.show()
+
+            },
             modifier = Modifier
                 .fillMaxWidth()
+                .padding(16.dp, 16.dp, 16.dp, 0.dp)
                 .height(50.dp)
-                .padding(16.dp, 0.dp)
-                .border(1.dp, Color.Gray, RoundedCornerShape(4.dp)),
-            singleLine = true,
-            visualTransformation = PasswordVisualTransformation(),
-            keyboardOptions = KeyboardOptions(
-                keyboardType = KeyboardType.Text,
-                imeAction = ImeAction.Next
-            ),
+        ) {
+            Text("Open Date Picker")
+        }
 
-            keyboardActions = KeyboardActions(
-                onNext = {
 
-                }
-            ),
-            placeholder = {
-                Text(
-                    text = "Date",
-                    style = TextStyle(fontSize = 12.sp)
-                )
-            }
+
+        // Displaying the mDate value in the Text
+            Text(text = "Selected Date From: ${mDateFrom.value}", fontSize = 15.sp)
+
+
+        Spacer(modifier = Modifier.height(16.dp))
+
+
+// Fetching the Local Context
+
+        // Declaring integer values
+        // for year, month and day
+        val mYear: Int
+        val mMonth: Int
+        val mDay: Int
+
+        // Initializing a Calendar
+        val mCalendar = Calendar.getInstance()
+
+        // Fetching current year, month and day
+        mYear = mCalendar.get(Calendar.YEAR)
+        mMonth = mCalendar.get(Calendar.MONTH)
+        mDay = mCalendar.get(Calendar.DAY_OF_MONTH)
+
+        mCalendar.time = Date()
+
+        // Declaring a string value to
+        // store date in string format
+        val mDate = remember { mutableStateOf("") }
+
+        // Declaring DatePickerDialog and setting
+        // initial values as current values (present year, month and day)
+        val mDatePickerDialog = DatePickerDialog(
+            mContext,
+            { _: DatePicker, mYear: Int, mMonth: Int, mDayOfMonth: Int ->
+                mDate.value = "$mDayOfMonth/${mMonth+1}/$mYear"
+            }, mYear, mMonth, mDay
         )
+
+
+            // Creating a button that on
+            // click displays/shows the DatePickerDialog
 
         Button(
             colors = ButtonDefaults.buttonColors(
@@ -124,13 +193,36 @@ fun BookingScreen(orderViewModel: OrderViewModel, hotel: Hotel, navHostControlle
                 contentColor = Color.White
             ),
             onClick = {
-                //if(GlobalUser.getInstance().getUser() != null){
+                mDatePickerDialog.show()
+
+            },
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(16.dp, 16.dp, 16.dp, 0.dp)
+                .height(50.dp)
+        ) {
+            Text("Open Date Picker")
+        }
+
+            // Displaying the mDate value in the Text
+            Text(text = "Selected Date To: ${mDate.value}", fontSize = 15.sp,)
+
+
+        Button(
+            colors = ButtonDefaults.buttonColors(
+                backgroundColor = (colorResource(id = R.color.figma_blue)),
+                contentColor = Color.White
+            ),
+            onClick = {
+                if(GlobalUser.getInstance().getUser() != null){
                     orderViewModel.selectedItem = hotel
+                    orderViewModel.dateFrom = mDateFrom
+                    orderViewModel.dateTo = mDate
                     orderViewModel.createOrder()
                     navHostController.navigate("home")
-                //}else{
-                  //  navHostController.navigate("login")
-               // }
+                }else{
+                    navHostController.navigate("login")
+                }
             },
             modifier = Modifier
                 .fillMaxWidth()

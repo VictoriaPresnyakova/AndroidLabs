@@ -17,6 +17,8 @@ import java.util.Date
 class OrderViewModel(val database: AppDatabase) : ViewModel() {
     var selectedItem: Hotel? = null
     val rooms = mutableStateOf("")
+    var dateFrom = mutableStateOf("")
+    var dateTo = mutableStateOf("")
 
     fun deleteOrder(order: Order) = viewModelScope.launch {
         database.orderDao().delete(order)
@@ -31,8 +33,8 @@ class OrderViewModel(val database: AppDatabase) : ViewModel() {
         Log.d("MyLog", GlobalUser.getInstance().getUser()?.userId.toString())
 
         val order = Order(
-            dateFrom = Date().time,
-            dateTo = Date().time,
+            dateFrom = dateFrom.value,
+            dateTo = dateTo.value,
             rooms = rooms.value.toInt(),
             total = getSubTotal(),
             bookedHotelId = selectedItem?.hotelId!!,

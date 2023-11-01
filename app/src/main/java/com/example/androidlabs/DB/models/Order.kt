@@ -10,9 +10,9 @@ data class Order(
     @PrimaryKey(autoGenerate = true)
     val orderId: Int? = null,
     @ColumnInfo(name = "DateFrom")
-    val dateFrom: Long,
+    val dateFrom: String,
     @ColumnInfo(name = "DateTo")
-    val dateTo: Long,
+    val dateTo: String,
     @ColumnInfo(name = "Rooms")
     val rooms: Int,
     @ColumnInfo(name = "Total")
