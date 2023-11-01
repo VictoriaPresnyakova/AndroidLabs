@@ -14,13 +14,14 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
+import com.example.androidlabs.DB.viewModels.HotelViewModel
 import com.example.androidlabs.Hotel
 import com.example.androidlabs.R
 
 
 @Composable
-fun ChangePanel(navHostController: NavHostController){
-    //val list = sneakerViewModel.SneakerList.collectAsState(initial = emptyList()).value
+fun ChangePanel(navHostController: NavHostController, hotelViewModel: HotelViewModel = viewModel(factory = HotelViewModel.factory)){
+    val list = hotelViewModel.HotelList.collectAsState(initial = emptyList()).value
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -32,16 +33,10 @@ fun ChangePanel(navHostController: NavHostController){
                 modifier = Modifier
                     .fillMaxSize()
             ) {
-                itemsIndexed(
-                listOf(
-                    Hotel("Hotel", R.drawable.img, 5, "location", "info", 4000),
-                    Hotel("Hotel", R.drawable.img, 5, "location", "info", 4000),
-                    Hotel("Hotel", R.drawable.img, 5, "location", "info", 4000)
-                )
+                itemsIndexed(list
                 ){_, item->
-                CardHotelForChange(item = item, navHostController)
-
-            }
+                    CardHotelForChange(item = item, navHostController)
+                }
             }
         }
     }

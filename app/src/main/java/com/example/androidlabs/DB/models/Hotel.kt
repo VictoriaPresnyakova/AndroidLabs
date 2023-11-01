@@ -12,18 +12,18 @@ data class Hotel (
     @ColumnInfo(name = "Name")
     val name: String,
 
-    @ColumnInfo(name = "Price")
+    @ColumnInfo(name = "Price")//
     val price: Double,
 
-    @ColumnInfo(name = "Img")
+    @ColumnInfo(name = "Img")//
     val img: Int,
 
-    @ColumnInfo(name = "Stars")
+    @ColumnInfo(name = "Stars")//
     val stars: Int,
 
-    @ColumnInfo(name = "Location")
+    @ColumnInfo(name = "Location")//
     val location: String,
 
-    @ColumnInfo(name = "Info")
+    @ColumnInfo(name = "Info")//
     val info: String,
 )

@@ -41,11 +41,15 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.NavHostController
+import com.example.androidlabs.DB.models.PhotoManager
+import com.example.androidlabs.DB.viewModels.HotelViewModel
 import com.example.androidlabs.R
 
 
 @Composable
-fun AddPanel(){
+fun AddPanel(navHostController: NavHostController, hotelViewModel: HotelViewModel = viewModel(factory = HotelViewModel.factory)){
+    val photoManager = PhotoManager()
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -59,7 +63,7 @@ fun AddPanel(){
             verticalArrangement = Arrangement.Center
         ) {
             Image(
-                painter = painterResource(id = R.drawable.img),
+                painter = painterResource(id = hotelViewModel.img.value),
                 contentDescription = "image",
                 contentScale = ContentScale.FillHeight,
                 modifier = Modifier
@@ -73,7 +77,8 @@ fun AddPanel(){
                     contentColor = Color.White
                 ),
                 onClick = {
-                          //TODO
+                    hotelViewModel.img.value = photoManager.changePhoto(hotelViewModel.img.value)
+
                 },
                 modifier = Modifier
                     .fillMaxWidth()
@@ -82,10 +87,35 @@ fun AddPanel(){
             ) {
                 Text("Add image")
             }
-
             TextField(
-                value = "",
-                onValueChange = { },
+                value = hotelViewModel.name.value,
+                onValueChange = { hotelViewModel.name.value = it },
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(50.dp)
+                    .padding(16.dp, 0.dp)
+                    .border(1.dp, Color.Gray, RoundedCornerShape(4.dp)),
+                singleLine = true,
+                keyboardOptions = KeyboardOptions(
+                    keyboardType = KeyboardType.Text,
+                    imeAction = ImeAction.Next
+                ),
+                keyboardActions = KeyboardActions(
+                    onNext = {
+
+                    }
+                ),
+                placeholder = {
+                    Text(
+                        text = "Name",
+                        style = TextStyle(fontSize = 12.sp)
+                    )
+                }
+            )
+            Spacer(modifier = Modifier.height(16.dp))
+            TextField(
+                value = hotelViewModel.stars.value,
+                onValueChange = { hotelViewModel.stars.value = it },
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(50.dp)
@@ -111,8 +141,8 @@ fun AddPanel(){
             Spacer(modifier = Modifier.height(16.dp))
 
             TextField(
-                value = "",
-                onValueChange = { },
+                value = hotelViewModel.location.value,
+                onValueChange = { hotelViewModel.location.value = it },
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(50.dp)
@@ -138,36 +168,11 @@ fun AddPanel(){
 
             Spacer(modifier = Modifier.height(16.dp))
 
-            TextField(
-                value = "",
-                onValueChange = { },
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(50.dp)
-                    .padding(16.dp, 0.dp)
-                    .border(1.dp, Color.Gray, RoundedCornerShape(4.dp)),
-                singleLine = true,
-                keyboardOptions = KeyboardOptions(
-                    keyboardType = KeyboardType.Text,
-                    imeAction = ImeAction.Next
-                ),
-                keyboardActions = KeyboardActions(
-                    onNext = {
 
-                    }
-                ),
-                placeholder = {
-                    Text(
-                        text = "Info",
-                        style = TextStyle(fontSize = 12.sp)
-                    )
-                }
-            )
-            Spacer(modifier = Modifier.height(16.dp))
 
             TextField(
-                value = "",
-                onValueChange = { },
+                value = hotelViewModel.price.value,
+                onValueChange = { hotelViewModel.price.value = it },
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(50.dp)
@@ -193,8 +198,8 @@ fun AddPanel(){
             Spacer(modifier = Modifier.height(16.dp))
 
             TextField(
-                value = "",
-                onValueChange = { },
+                value = hotelViewModel.info.value,
+                onValueChange = { hotelViewModel.info.value = it },
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(50.dp)
@@ -224,7 +229,8 @@ fun AddPanel(){
                     contentColor = Color.White
                 ),
                 onClick = {
-                          //
+                    hotelViewModel.insertHotel()
+                    navHostController.navigate("home")
                 },
                 modifier = Modifier
                     .fillMaxWidth()
@@ -241,6 +247,6 @@ fun AddPanel(){
 @Composable
 fun AddPreview() {
 
-    AddPanel()
+    //AddPanel()
 
 }

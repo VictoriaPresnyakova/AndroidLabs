@@ -19,6 +19,6 @@ sealed class NavItem(val route: String, val icon: ImageVector?){
     object AdminPanel : NavItem("admin", Icons.Default.Build)
     object AddPanel : NavItem("add", null)
     object ChangePanel : NavItem("change", null)
-//    object ChangeHotel : NavItem("changeHotel/{hotelItem}", null)
+    object ChangeHotel : NavItem("changeHotel/{hotelItem}", null)
 
 }

@@ -2,7 +2,6 @@ package com.example.androidlabs.adminPanel
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -10,7 +9,13 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.Button
+import androidx.compose.material.ButtonDefaults
+import androidx.compose.material.Icon
 import androidx.compose.material.Text
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Create
+import androidx.compose.material.icons.filled.Delete
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -22,15 +27,17 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
-import com.example.androidlabs.Hotel
+import com.example.androidlabs.DB.models.Hotel
+import com.example.androidlabs.DB.viewModels.HotelViewModel
 import com.example.androidlabs.R
 import com.google.gson.Gson
 
 
 @Composable
-fun CardHotelForChange(item: Hotel, navController: NavHostController) {
+fun CardHotelForChange(item: Hotel, navController: NavHostController, hotelViewModel: HotelViewModel = viewModel(factory = HotelViewModel.factory)) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -59,28 +66,39 @@ fun CardHotelForChange(item: Hotel, navController: NavHostController) {
             Text(text = "${item.location}", color = Color.Red, fontSize = 16.sp)
         }
 
-        Image(
-            painter = painterResource(id = R.drawable.baseline_edit_24),
-            contentDescription = "image",
-            modifier = Modifier
-                .size(40.dp)
-                .padding(10.dp)
-                .clickable {
-                    val hotelItemString = Gson().toJson(item)
-                    navController.navigate("changeHotel/${hotelItemString}")
-                }
-        )
+        Button(
+            colors = ButtonDefaults.buttonColors(
+                backgroundColor = colorResource(id = R.color.figma_blue),
+                contentColor = Color.White
+            ),
+            onClick = {
+                hotelViewModel.name.value = item.name ?: ""
+                hotelViewModel.price.value = item.price.toString()
+                hotelViewModel.stars.value = item.stars.toString()
+                hotelViewModel.location.value = item.location ?: ""
+                hotelViewModel.info.value = item.info ?: ""
 
-        Image(
-            painter = painterResource(id = R.drawable.baseline_delete_24),
-            contentDescription = "image",
+                val hotelItemString = Gson().toJson(item)
+                navController.navigate("changeHotel/${hotelItemString}") },
             modifier = Modifier
-                .size(40.dp)
-                .padding(10.dp)
-                .clickable {
+                .padding(end = 16.dp)
+        ) {
+            Icon(imageVector = Icons.Default.Create, contentDescription = "change")
+        }
 
-                }
-        )
+        Button(
+            colors = ButtonDefaults.buttonColors(
+                backgroundColor = colorResource(id = R.color.figma_blue),
+                contentColor = Color.White
+            ),
+            onClick = {
+                hotelViewModel.deleteHotel(item)
+            },
+            modifier = Modifier
+                .padding(end = 16.dp)
+        ) {
+            Icon(imageVector = Icons.Default.Delete, contentDescription = "delete")
+        }
     }
 }
 
@@ -91,5 +109,5 @@ fun CardHotelForChange(item: Hotel, navController: NavHostController) {
 @Preview
 fun CardHotelLikePreview(){
     val navController = rememberNavController()
-    CardHotelForChange(Hotel("Hotel", R.drawable.img, 5, "location", "info", 4000), navController)
+    //CardHotelForChange(Hotel("Hotel", R.drawable.img, 5, "location", "info", 4000), navController)
 }
