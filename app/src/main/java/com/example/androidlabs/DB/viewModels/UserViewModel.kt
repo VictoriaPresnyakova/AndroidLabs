@@ -1,5 +1,6 @@
 package com.example.androidlabs.DB.viewModels
 
+import android.util.Log
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
@@ -33,7 +34,9 @@ class UserViewModel(val database: AppDatabase): ViewModel() {
         if (password.value != "" && user.password == password.value) {
             val globalUser = GlobalUser.getInstance()
             globalUser.setUser(user)
+            Log.d("MyLog", GlobalUser.getInstance().getUser()?.userId.toString())
             println()
+
         }
     }
     fun isValidEmail(email: String): Boolean {

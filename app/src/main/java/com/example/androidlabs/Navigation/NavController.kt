@@ -9,6 +9,7 @@ import androidx.navigation.compose.composable
 import com.example.androidlabs.DB.models.Hotel
 import com.example.androidlabs.DB.viewModels.HotelViewModel
 import com.example.androidlabs.DB.viewModels.OrderViewModel
+import com.example.androidlabs.MyOrderScreen.MyOrderScreen
 import com.example.androidlabs.R
 import com.example.androidlabs.booking.BookingScreen
 import com.example.androidlabs.homeScreen.CardItem.HotelCard
@@ -40,6 +41,9 @@ fun NavController(navController: NavHostController) {
         }
         composable(NavItem.Home.route) {
             HomeScreen(navController)
+        }
+        composable(NavItem.MyOrder.route){
+            MyOrderScreen(orderViewModel)
         }
         composable(NavItem.Profile.route) {
             ProfileScreen(navController)

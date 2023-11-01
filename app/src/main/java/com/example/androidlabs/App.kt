@@ -11,7 +11,7 @@ class App : Application() {
 
     override fun onCreate() {
         super.onCreate()
-//        this.deleteDatabase("my-db")
+        //this.deleteDatabase("my-db")
         CoroutineScope(Dispatchers.IO).launch {
             AppDatabase.populateDatabase()
         }

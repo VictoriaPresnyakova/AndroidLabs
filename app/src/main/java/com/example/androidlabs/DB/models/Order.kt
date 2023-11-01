@@ -1,6 +1,7 @@
 package com.example.androidlabs.DB.models
 
 import androidx.room.ColumnInfo
+import androidx.room.Embedded
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
@@ -19,5 +20,7 @@ data class Order(
     @ColumnInfo(name = "CreatorUserId")
     val creatorUserId: Int,
     @ColumnInfo(name = "BookedHotelId")
-    val bookedHotelId: Int
+    val bookedHotelId: Int,
+    @Embedded
+    val hotel: Hotel
 )

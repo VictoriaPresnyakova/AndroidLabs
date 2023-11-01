@@ -9,6 +9,7 @@ import androidx.compose.ui.graphics.vector.ImageVector
 
 sealed class NavItem(val route: String, val icon: ImageVector?){
     object Home : NavItem("home", Icons.Default.Home)
+    object MyOrder : NavItem("myorder", null)
     object Profile : NavItem("profile", Icons.Default.Person)
     object SignIn : NavItem("login", null)
     object SignUp : NavItem("signup", null)

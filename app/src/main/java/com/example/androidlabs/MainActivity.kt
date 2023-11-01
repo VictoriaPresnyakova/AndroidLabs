@@ -12,7 +12,6 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             Navigate()
-            //HotelInfo(Hotel("hotel", R.drawable.img_1, 4, "location"))
         }
     }
 }

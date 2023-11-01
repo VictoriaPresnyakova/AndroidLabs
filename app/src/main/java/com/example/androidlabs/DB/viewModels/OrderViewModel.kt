@@ -1,5 +1,6 @@
 package com.example.androidlabs.DB.viewModels
 
+import android.util.Log
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
@@ -27,14 +28,16 @@ class OrderViewModel(val database: AppDatabase) : ViewModel() {
 
 
     fun createOrder() = viewModelScope.launch {
+        Log.d("MyLog", GlobalUser.getInstance().getUser()?.userId.toString())
+
         val order = Order(
             dateFrom = Date().time,
             dateTo = Date().time,
             rooms = rooms.value.toInt(),
             total = getSubTotal(),
             bookedHotelId = selectedItem?.hotelId!!,
-            //creatorUserId = 1
-            creatorUserId = GlobalUser.getInstance().getUser()?.userId!!
+            creatorUserId = GlobalUser.getInstance().getUser()?.userId!!,
+            hotel = selectedItem!!
         )
 
         val orderId = database.orderDao().createOrder(order)
