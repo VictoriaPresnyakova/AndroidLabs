@@ -39,10 +39,11 @@ import com.example.androidlabs.DB.models.Hotel
 import com.example.androidlabs.DB.viewModels.HotelViewModel
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.androidlabs.DB.models.PhotoManager
+import com.example.androidlabs.DB.viewModels.AppViewModelProvider
 import com.example.androidlabs.R
 
 @Composable
-fun ChangeHotel(hotel: Hotel, onBackClick: () -> Unit, hotelViewModel: HotelViewModel = viewModel(factory = HotelViewModel.factory)) {
+fun ChangeHotel(hotel: Hotel, onBackClick: () -> Unit, hotelViewModel: HotelViewModel = viewModel(factory = AppViewModelProvider.Factory)) {
     val name = remember { mutableStateOf(hotel.name) }
     val price = remember{ mutableStateOf(hotel.price.toString()) }
     val stars = remember{ mutableStateOf(hotel.stars.toString()) }

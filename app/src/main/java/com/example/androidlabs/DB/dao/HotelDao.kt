@@ -1,4 +1,5 @@
 package com.example.androidlabs.DB.dao
+import androidx.paging.PagingSource
 import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Insert
@@ -19,7 +20,7 @@ interface HotelDao {
     suspend fun delete(hotel: Hotel)
 
     @Query("SELECT*FROM Hotel")
-    fun getAllHotelss(): Flow<List<Hotel>>
+    fun getAllHotelsPaged(): PagingSource<Int, Hotel>
 
     @Query("SELECT * FROM Hotel WHERE hotelId = :id")
     suspend fun getHotelById(id: Int): Hotel

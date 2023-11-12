@@ -43,12 +43,13 @@ import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import com.example.androidlabs.DB.models.PhotoManager
+import com.example.androidlabs.DB.viewModels.AppViewModelProvider
 import com.example.androidlabs.DB.viewModels.HotelViewModel
 import com.example.androidlabs.R
 
 
 @Composable
-fun AddPanel(navHostController: NavHostController, hotelViewModel: HotelViewModel = viewModel(factory = HotelViewModel.factory)){
+fun AddPanel(navHostController: NavHostController, hotelViewModel: HotelViewModel = viewModel(factory = AppViewModelProvider.Factory)){
     val photoManager = PhotoManager()
     Row(
         modifier = Modifier

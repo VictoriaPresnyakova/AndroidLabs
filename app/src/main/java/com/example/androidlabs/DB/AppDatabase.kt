@@ -33,9 +33,9 @@ abstract class AppDatabase : RoomDatabase() {
             INSTANCE?.let { database ->
                 // User
                 val userDao = database.userDao()
-                val user1 = User(null, "Artem", "Emelyanov", "artem@mail.ru", "123", RoleEnum.Admin)
+                val user1 = User(null, "Artem", "Emelyanov", "artem@mail.ru", "123", RoleEnum.User)
                 val user2 = User(null, "Danil", "Markov", "danil@mail.ru", "123", RoleEnum.User)
-                val user3 = User(null, "Viktoria", "Presnyakova", "vika@mail.ru", "123", RoleEnum.User)
+                val user3 = User(null, "Viktoria", "Presnyakova", "vika@mail.ru", "123", RoleEnum.Admin)
                 userDao.createUser(user1)
                 userDao.createUser(user2)
                 userDao.createUser(user3)

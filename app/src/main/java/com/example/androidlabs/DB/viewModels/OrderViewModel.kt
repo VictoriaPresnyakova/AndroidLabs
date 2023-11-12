@@ -10,22 +10,25 @@ import com.example.androidlabs.App
 import com.example.androidlabs.DB.AppDatabase
 import com.example.androidlabs.DB.models.Hotel
 import com.example.androidlabs.DB.models.Order
+import com.example.androidlabs.DB.models.UserWithOrder
+import com.example.androidlabs.DB.repository.OrderRepository
 import com.example.androidlabs.GlobalUser
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
 import java.util.Date
 
-class OrderViewModel(val database: AppDatabase) : ViewModel() {
+class OrderViewModel(private val orderRepository: OrderRepository) : ViewModel() {
     var selectedItem: Hotel? = null
     val rooms = mutableStateOf("")
     var dateFrom = mutableStateOf("")
     var dateTo = mutableStateOf("")
 
     fun deleteOrder(order: Order) = viewModelScope.launch {
-        database.orderDao().delete(order)
+        orderRepository.delete(order)
     }
 
-    fun getOrderList(id: Int) = viewModelScope.launch {
-        database.userDao().getUserOrders(id)
+    fun getOrderList(id: Int) : Flow<UserWithOrder> {
+        return orderRepository.getUserOrders(id)
     }
 
 
@@ -42,7 +45,7 @@ class OrderViewModel(val database: AppDatabase) : ViewModel() {
             hotel = selectedItem!!
         )
 
-        val orderId = database.orderDao().createOrder(order)
+        val orderId = orderRepository.createOrder(order)
 
 
         rooms.value = ""
@@ -51,17 +54,5 @@ class OrderViewModel(val database: AppDatabase) : ViewModel() {
 
     fun getSubTotal(): Double {
         return selectedItem!!.price * rooms.value.toInt()
-    }
-
-    companion object{
-        val factory: ViewModelProvider.Factory = object : ViewModelProvider.Factory{
-            override fun <T : ViewModel> create(
-                modelClass: Class<T>,
-                extras: CreationExtras
-            ): T {
-                val database = (checkNotNull(extras[ViewModelProvider.AndroidViewModelFactory.APPLICATION_KEY]) as App).database
-                return OrderViewModel(database) as T
-            }
-        }
     }
 }

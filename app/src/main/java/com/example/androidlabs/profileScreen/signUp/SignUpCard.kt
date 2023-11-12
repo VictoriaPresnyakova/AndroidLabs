@@ -37,12 +37,13 @@ import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
+import com.example.androidlabs.DB.viewModels.AppViewModelProvider
 import com.example.androidlabs.DB.viewModels.UserViewModel
 import com.example.androidlabs.R
 import com.example.androidlabs.profileScreen.signIn.LoginScreen
 
 @Composable
-fun SignUpCard(navHostController: NavHostController, userViewModel: UserViewModel = viewModel(factory = UserViewModel.factory)) {
+fun SignUpCard(navHostController: NavHostController, userViewModel: UserViewModel = viewModel(factory = AppViewModelProvider.Factory)) {
     Row(
         modifier = Modifier
             .fillMaxWidth()

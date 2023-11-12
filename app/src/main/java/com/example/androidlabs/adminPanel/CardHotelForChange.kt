@@ -31,13 +31,14 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.example.androidlabs.DB.models.Hotel
+import com.example.androidlabs.DB.viewModels.AppViewModelProvider
 import com.example.androidlabs.DB.viewModels.HotelViewModel
 import com.example.androidlabs.R
 import com.google.gson.Gson
 
 
 @Composable
-fun CardHotelForChange(item: Hotel, navController: NavHostController, hotelViewModel: HotelViewModel = viewModel(factory = HotelViewModel.factory)) {
+fun CardHotelForChange(item: Hotel, navController: NavHostController, hotelViewModel: HotelViewModel = viewModel(factory = AppViewModelProvider.Factory)) {
     Row(
         modifier = Modifier
             .fillMaxWidth()

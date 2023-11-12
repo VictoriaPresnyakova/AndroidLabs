@@ -22,9 +22,9 @@ import androidx.compose.runtime.getValue
 
 @Composable
 fun MyOrderScreen(orderViewModel: OrderViewModel) {
-    val userWithOrder by orderViewModel.database.userDao().getUserOrders(GlobalUser.getInstance().getUser()?.userId!!).collectAsState(null)
-
-    val orderList: List<Order>? = userWithOrder?.orders
+//    val userWithOrder by orderViewModel.database.userDao().getUserOrders(GlobalUser.getInstance().getUser()?.userId!!).collectAsState(null)
+    val userId = GlobalUser.getInstance().getUser()?.userId
+    val userWithOrder = orderViewModel.getOrderList(userId!!).collectAsState(null).value?.orders
     println()
     Column(
         modifier = Modifier
@@ -46,8 +46,8 @@ fun MyOrderScreen(orderViewModel: OrderViewModel) {
                 modifier = Modifier
                     .fillMaxSize()
             ) {
-                if (orderList != null) {
-                    for (item in orderList) {
+                if (userWithOrder != null) {
+                    for (item in userWithOrder) {
                         OrderCard(item, orderViewModel)
                     }
                 }

@@ -6,6 +6,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.example.androidlabs.DB.models.Hotel
+import com.example.androidlabs.DB.viewModels.AppViewModelProvider
 import com.example.androidlabs.DB.viewModels.OrderViewModel
 import com.example.androidlabs.MyOrderScreen.MyOrderScreen
 import com.example.androidlabs.booking.BookingScreen
@@ -23,7 +24,7 @@ import com.google.gson.Gson
 
 @Composable
 fun NavController(navController: NavHostController) {
-    var orderViewModel: OrderViewModel = viewModel(factory = OrderViewModel.factory)
+    var orderViewModel: OrderViewModel = viewModel(factory = AppViewModelProvider.Factory)
     NavHost(
         navController = navController,
         startDestination = NavItem.Home.route
