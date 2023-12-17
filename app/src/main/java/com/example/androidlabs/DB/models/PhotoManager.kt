@@ -2,7 +2,7 @@ package com.example.androidlabs.DB.models
 
 import com.example.androidlabs.R
 
-class PhotoManager {
+class  PhotoManager {
     private val photos = listOf(
         R.drawable.img,
         R.drawable.img_1,

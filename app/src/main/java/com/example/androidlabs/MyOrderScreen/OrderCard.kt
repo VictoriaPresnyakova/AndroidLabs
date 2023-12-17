@@ -14,6 +14,10 @@ import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
@@ -22,9 +26,11 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.androidlabs.DB.AppDatabase
 import com.example.androidlabs.DB.models.Hotel
 import com.example.androidlabs.DB.models.Order
+import com.example.androidlabs.DB.viewModels.AppViewModelProvider
 import com.example.androidlabs.DB.viewModels.OrderViewModel
 import com.example.androidlabs.R
 import kotlinx.coroutines.Dispatchers
@@ -32,7 +38,11 @@ import kotlinx.coroutines.withContext
 import java.util.Date
 
 @Composable
-fun OrderCard(order: Order, orderViewModel: OrderViewModel){
+fun OrderCard(order: Order, orderViewModel: OrderViewModel = viewModel(factory = AppViewModelProvider.Factory)){
+    var hotels by remember { mutableStateOf<List<Hotel>>(emptyList()) }
+    LaunchedEffect(order.orderId) {
+        hotels = listOf(orderViewModel.getHotelFromOrder(order.orderId!!))
+    }
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -53,17 +63,18 @@ fun OrderCard(order: Order, orderViewModel: OrderViewModel){
 
 
             Row(){
-
+                if (hotels != null) {
+                    for(hotel in hotels) {
                         Image(
                             contentScale = ContentScale.FillBounds,
-                            painter = painterResource(id =order.hotel.img),
+                            painter = painterResource(id = hotel.img), // TODO
                             contentDescription = null,
                             modifier = Modifier
                                 .size(70.dp)
                                 .padding(0.dp, 10.dp, 10.dp, 10.dp)
                         )
-
-
+                    }
+                }
             }
             Button(
                 colors = ButtonDefaults.buttonColors(
@@ -71,7 +82,7 @@ fun OrderCard(order: Order, orderViewModel: OrderViewModel){
                     contentColor = Color.White
                 ),
                 onClick = {
-                    orderViewModel.deleteOrder(order)
+                    orderViewModel.deleteOrder(order.orderId!!)
                 },
                 modifier = Modifier
                     .fillMaxWidth()

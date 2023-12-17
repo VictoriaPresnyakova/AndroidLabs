@@ -1,22 +1,38 @@
 package com.example.androidlabs
 
+import RestUserRepository
 import android.content.Context
 import com.example.androidlabs.DB.AppDatabase
 import com.example.androidlabs.DB.repository.HotelRepImpl
 import com.example.androidlabs.DB.repository.HotelRepository
-import com.example.androidlabs.DB.repository.OrderRepImpl
 import com.example.androidlabs.DB.repository.OrderRepository
-import com.example.androidlabs.DB.repository.UserRepImpl
+import com.example.androidlabs.DB.repository.RemoteKeysRepositoryImpl
 import com.example.androidlabs.DB.repository.UserRepository
+import com.example.androidlabs.api.BackendService
+import com.example.androidlabs.api.repository.RestHotelRepository
+import com.example.androidlabs.api.repository.RestOrderRepository
+
 
 class AppDataContainer(private val context: Context) : AppContainer {
     override val hotelRepo: HotelRepository by lazy {
-        HotelRepImpl(AppDatabase.getInstance(context).hotelDao())
+        RestHotelRepository(
+            BackendService.getInstance(),
+            hotelRepository,
+            AppDatabase.getInstance(context),
+            remoteKeyRepository
+        )
     }
     override val userRepo: UserRepository by lazy {
-        UserRepImpl(AppDatabase.getInstance(context).userDao())
+        RestUserRepository(BackendService.getInstance())
     }
+
     override val orderRepo: OrderRepository by lazy {
-        OrderRepImpl(AppDatabase.getInstance(context).orderDao())
+        RestOrderRepository(BackendService.getInstance())
+    }
+    private val hotelRepository: HotelRepImpl by lazy {
+        HotelRepImpl(AppDatabase.getInstance(context).hotelDao())
+    }
+    private val remoteKeyRepository: RemoteKeysRepositoryImpl by lazy {
+        RemoteKeysRepositoryImpl(AppDatabase.getInstance(context).remoteKeysDao())
     }
 }

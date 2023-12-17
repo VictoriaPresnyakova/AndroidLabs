@@ -22,7 +22,7 @@ class HotelViewModel(private val hotelRepository: HotelRepository): ViewModel() 
     val stars = mutableStateOf("")
     val info = mutableStateOf("")
     val img = mutableStateOf(R.drawable.img)
-    val HotelList = hotelRepository.call().cachedIn(viewModelScope)
+    val HotelList = hotelRepository.getAllHotels()
     var hotel: Hotel? = null
 
     fun insertHotel() = viewModelScope.launch {

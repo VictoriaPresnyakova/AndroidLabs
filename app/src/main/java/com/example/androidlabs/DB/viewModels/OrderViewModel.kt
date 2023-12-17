@@ -23,14 +23,17 @@ class OrderViewModel(private val orderRepository: OrderRepository) : ViewModel()
     var dateFrom = mutableStateOf("")
     var dateTo = mutableStateOf("")
 
-    fun deleteOrder(order: Order) = viewModelScope.launch {
-        orderRepository.delete(order)
+    fun deleteOrder(orderId: Int) = viewModelScope.launch {
+        orderRepository.delete(orderId)
     }
 
-    fun getOrderList(id: Int) : Flow<UserWithOrder> {
+    suspend fun getOrderList(id: Int) : Flow<List<Order>> {
         return orderRepository.getUserOrders(id)
     }
 
+    suspend fun getHotelFromOrder(id: Int) : Hotel {
+        return orderRepository.getHotelFromOrder(id)
+    }
 
     fun createOrder() = viewModelScope.launch {
         Log.d("MyLog", GlobalUser.getInstance().getUser()?.userId.toString())
@@ -42,7 +45,7 @@ class OrderViewModel(private val orderRepository: OrderRepository) : ViewModel()
             total = getSubTotal(),
             bookedHotelId = selectedItem?.hotelId!!,
             creatorUserId = GlobalUser.getInstance().getUser()?.userId!!,
-            hotel = selectedItem!!
+            //hotel = selectedItem!!
         )
 
         val orderId = orderRepository.createOrder(order)

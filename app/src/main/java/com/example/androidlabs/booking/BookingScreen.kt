@@ -40,11 +40,13 @@ import com.example.androidlabs.R
 import android.app.DatePickerDialog
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.style.TextAlign
+import androidx.lifecycle.viewmodel.compose.viewModel
+import com.example.androidlabs.DB.viewModels.AppViewModelProvider
 import java.util.Calendar
 import java.util.Date
 
 @Composable
-fun BookingScreen(orderViewModel: OrderViewModel, hotel: Hotel, navHostController: NavHostController) {
+fun BookingScreen(hotel: Hotel, navHostController: NavHostController, orderViewModel: OrderViewModel = viewModel(factory = AppViewModelProvider.Factory)) {
     Column(
         modifier = Modifier
             .fillMaxSize()

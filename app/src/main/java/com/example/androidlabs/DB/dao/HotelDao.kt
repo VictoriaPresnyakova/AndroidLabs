@@ -11,7 +11,7 @@ import kotlinx.coroutines.flow.Flow
 @Dao
 interface HotelDao {
     @Insert
-    suspend fun insert(hotel: Hotel)
+    suspend fun insert(vararg hotel: Hotel)
 
     @Update
     suspend fun update(hotel: Hotel)
@@ -24,4 +24,10 @@ interface HotelDao {
 
     @Query("SELECT * FROM Hotel WHERE hotelId = :id")
     suspend fun getHotelById(id: Int): Hotel
+
+    @Query("select * from Hotel")
+    fun getAll(): PagingSource<Int, Hotel>
+
+    @Query("DELETE FROM Hotel")
+    suspend fun deleteAll()
 }

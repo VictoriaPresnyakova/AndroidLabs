@@ -26,7 +26,7 @@ import com.example.androidlabs.profileScreen.signIn.LoginScreen
 fun AdminPanel(navHostController: NavHostController) {
     var isAddPanelVisible by remember { mutableStateOf(false) }
     var isChangePanelVisible by remember { mutableStateOf(true) }
-    var showDialog by remember { mutableStateOf(GlobalUser.getInstance().getUser()?.role == RoleEnum.User || GlobalUser.getInstance().getUser()?.role == null) }
+    var showDialog by remember { mutableStateOf(GlobalUser.getInstance().getUser()?.role == "USER" || GlobalUser.getInstance().getUser()?.role == null) }
     if (showDialog) {
         AlertDialog(
             onDismissRequest = { showDialog = false },

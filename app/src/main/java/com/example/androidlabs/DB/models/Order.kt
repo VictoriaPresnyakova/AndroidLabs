@@ -21,6 +21,6 @@ data class Order(
     val creatorUserId: Int,
     @ColumnInfo(name = "BookedHotelId")
     val bookedHotelId: Int,
-    @Embedded
-    val hotel: Hotel
+//    @Embedded
+//    val hotel: Hotel
 )

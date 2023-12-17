@@ -24,7 +24,6 @@ import com.google.gson.Gson
 
 @Composable
 fun NavController(navController: NavHostController) {
-    var orderViewModel: OrderViewModel = viewModel(factory = AppViewModelProvider.Factory)
     NavHost(
         navController = navController,
         startDestination = NavItem.Home.route
@@ -41,7 +40,7 @@ fun NavController(navController: NavHostController) {
             HomeScreen(navController)
         }
         composable(NavItem.MyOrder.route){
-            MyOrderScreen(orderViewModel)
+            MyOrderScreen()
         }
         composable(NavItem.Profile.route) {
             ProfileScreen(navController)
@@ -56,7 +55,7 @@ fun NavController(navController: NavHostController) {
             backStackEntry ->
             val hotelItemString = backStackEntry.arguments?.getString("hotelItem")
             val hotelItem = Gson().fromJson(hotelItemString, Hotel::class.java)
-            hotelItem?.let { BookingScreen(orderViewModel, it, navController)
+            hotelItem?.let { BookingScreen(it, navController)
             }
         }
         composable(NavItem.ChangeHotel.route) { backStackEntry ->

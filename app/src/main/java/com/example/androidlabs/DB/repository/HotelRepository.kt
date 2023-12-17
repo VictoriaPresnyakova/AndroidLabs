@@ -9,6 +9,6 @@ interface HotelRepository {
     suspend fun updateHotel(hotel: Hotel)
     suspend fun deleteHotel(hotel: Hotel)
     suspend fun getHotelById(id: Int): Hotel
-    fun getAllHotelsPaged(): PagingSource<Int, Hotel>
-    fun call(): Flow<PagingData<Hotel>>
+    fun getAllHotels(): Flow<PagingData<Hotel>>
+
 }

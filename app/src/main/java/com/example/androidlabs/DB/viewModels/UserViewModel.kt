@@ -12,6 +12,8 @@ import com.example.androidlabs.DB.models.RoleEnum
 import com.example.androidlabs.DB.models.User
 import com.example.androidlabs.DB.repository.UserRepository
 import com.example.androidlabs.GlobalUser
+import com.example.androidlabs.R
+import com.example.androidlabs.api.model.UserRemoteSignIn
 
 import kotlinx.coroutines.launch
 class UserViewModel(private val userRepository: UserRepository): ViewModel() {
@@ -26,22 +28,17 @@ class UserViewModel(private val userRepository: UserRepository): ViewModel() {
             surname = surname.value,
             email = email.value,
             password = password.value,
-            role = RoleEnum.User
+            role = "USER",
+            photo = R.drawable.img_2
         )
         userRepository.createUser(user)
     }
     fun authUser() = viewModelScope.launch {
-        val user = userRepository.getUserByEmail(email.value)
-        if (password.value != "" && user.password == password.value) {
-            val globalUser = GlobalUser.getInstance()
-            globalUser.setUser(user)
-            Log.d("MyLog", GlobalUser.getInstance().getUser()?.userId.toString())
-            println()
-
-        }
+        val user = userRepository.authUser(UserRemoteSignIn(email.value, password.value))
+        GlobalUser.getInstance().setUser(user)
     }
+
     fun isValidEmail(email: String): Boolean {
         return android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()
     }
-
 }
