@@ -84,7 +84,7 @@ fun HotelInfo(hotel: Hotel, navController: NavHostController) {
                 horizontalArrangement = Arrangement.SpaceEvenly
             ){
                 Text(text = "1 room | 1 Night")
-                Text(text = "Rs. 4000")
+                Text(text = "Rs. " + hotel.price)
             }
         }
         Divider(color = Color.Black, thickness = 1.dp)
@@ -133,7 +133,7 @@ fun HotelInfo(hotel: Hotel, navController: NavHostController) {
                 verticalArrangement = Arrangement.SpaceEvenly
             ){
                 Text(text = "Info")
-                Text(text = "inf")
+                Text(text = hotel.info)
             }
         }
         Row(

@@ -19,7 +19,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 // TODO
-@Database(entities = [Hotel::class, User::class, Order::class, RemoteKeys::class], version = 5)
+@Database(entities = [Hotel::class, User::class, Order::class, RemoteKeys::class], version = 6)
 abstract class AppDatabase : RoomDatabase() {
     abstract fun hotelDao(): HotelDao
     abstract fun userDao(): UserDao
@@ -43,7 +43,7 @@ abstract class AppDatabase : RoomDatabase() {
                 userDao.createUser(user1)
                 userDao.createUser(user2)
                 userDao.createUser(user3)
-                // Sneaker
+                // Hotel
                 val hotelDao = database.hotelDao()
                 val hotel1 = Hotel(null, "Hotel1", 1000.0, R.drawable.img, 1, "location1", "info1")
                 val hotel2 = Hotel(null, "Hotel2", 2000.0, R.drawable.img_2, 2, "location2", "info2")

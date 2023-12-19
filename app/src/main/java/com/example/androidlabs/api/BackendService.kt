@@ -43,7 +43,7 @@ interface BackendService {
         @Body hotel: HotelRemote
     ): HotelRemote
 
-    @DELETE("sneaker/delete/{id}")
+    @DELETE("hotel/delete/{id}")
     suspend fun deleteHotel(
         @Path("id") id: Int
     )
@@ -80,7 +80,7 @@ interface BackendService {
     )
 
     companion object {
-        private const val BASE_URL = "https://59k4pfj3-8080.euw.devtunnels.ms/api/"
+        private const val BASE_URL = "https://7w06qshk-8080.euw.devtunnels.ms/api/"
 
         @Volatile
         private var INSTANCE: BackendService? = null

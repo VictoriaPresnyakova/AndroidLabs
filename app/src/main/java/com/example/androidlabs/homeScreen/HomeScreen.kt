@@ -37,7 +37,6 @@ import com.example.androidlabs.homeScreen.SearchField.SearchField
 @Composable
 fun HomeScreen(navController: NavHostController, hotelViewModel: HotelViewModel = viewModel(factory = AppViewModelProvider.Factory)) {
     val list = hotelViewModel.HotelList.collectAsLazyPagingItems()
-    //Log.d("MyLog", list.toString())
     Column(
         modifier = Modifier
             .fillMaxSize()

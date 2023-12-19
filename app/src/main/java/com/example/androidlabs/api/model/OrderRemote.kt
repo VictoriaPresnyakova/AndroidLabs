@@ -1,8 +1,5 @@
 package com.example.androidlabs.api.model
 
-import androidx.room.ColumnInfo
-import androidx.room.PrimaryKey
-import com.example.androidlabs.DB.models.Hotel
 import com.example.androidlabs.DB.models.Order
 
 import kotlinx.serialization.Serializable
@@ -15,7 +12,7 @@ data class OrderRemote(
     val rooms: Int = 0,
     val total: Double = 0.0,
     val userId: Int = 0,
-    val bookedHotelId: Int = 0
+    val hotelId: Int = 0
     )
 
 fun OrderRemote.toOrder(): Order = Order(
@@ -25,7 +22,7 @@ fun OrderRemote.toOrder(): Order = Order(
     rooms,
     total,
     userId,
-    bookedHotelId,
+    hotelId,
     )
 
 fun Order.toOrderRemote():OrderRemote = OrderRemote(
