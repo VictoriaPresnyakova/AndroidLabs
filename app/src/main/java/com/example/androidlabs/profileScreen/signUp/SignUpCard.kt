@@ -1,5 +1,6 @@
 package com.example.androidlabs.profileScreen.signUp
 
+import android.widget.Toast
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
@@ -25,6 +26,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
@@ -40,10 +42,18 @@ import androidx.navigation.compose.rememberNavController
 import com.example.androidlabs.DB.viewModels.AppViewModelProvider
 import com.example.androidlabs.DB.viewModels.UserViewModel
 import com.example.androidlabs.R
+import com.example.androidlabs.api.ApiStatus
+import com.example.androidlabs.profileScreen.circular
 import com.example.androidlabs.profileScreen.signIn.LoginScreen
 
 @Composable
 fun SignUpCard(navHostController: NavHostController, userViewModel: UserViewModel = viewModel(factory = AppViewModelProvider.Factory)) {
+    val context = LocalContext.current
+    when(userViewModel.apiStatus){
+        ApiStatus.LOADING -> circular()
+        ApiStatus.ERROR -> Toast.makeText(context, "Не удалось создать пользователя: " + userViewModel.apiError, Toast.LENGTH_SHORT).show()
+        else -> {}
+    }
     Row(
         modifier = Modifier
             .fillMaxWidth()

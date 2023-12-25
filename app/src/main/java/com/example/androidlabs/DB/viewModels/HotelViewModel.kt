@@ -15,7 +15,7 @@ import com.example.androidlabs.R
 
 import kotlinx.coroutines.launch
 
-class HotelViewModel(private val hotelRepository: HotelRepository): ViewModel() {
+class HotelViewModel(private val hotelRepository: HotelRepository): MyViewModel() {
     var name = mutableStateOf("")
     val price = mutableStateOf("")
     val location = mutableStateOf("")
@@ -38,7 +38,11 @@ class HotelViewModel(private val hotelRepository: HotelRepository): ViewModel() 
     }
 
     fun deleteHotel(hotel :  Hotel) = viewModelScope.launch {
-        hotelRepository.deleteHotel(hotel)
+        runInScope(
+            actionSuccess = {
+                hotelRepository.deleteHotel(hotel)
+            }
+        )
     }
 
     fun getHotelById(id: Int) = viewModelScope.launch {

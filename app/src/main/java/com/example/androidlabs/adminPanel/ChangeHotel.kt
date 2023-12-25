@@ -245,7 +245,7 @@ fun ChangeHotel(hotel: Hotel, onBackClick: () -> Unit, hotelViewModel: HotelView
                           },
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(16.dp)
+                    .padding(16.dp, 16.dp, 16.dp, 42.dp)
                     .height(50.dp)
             ) {
                 Text("Change hotel")

@@ -16,12 +16,14 @@ import com.example.androidlabs.R
 import com.example.androidlabs.api.model.UserRemoteSignIn
 
 import kotlinx.coroutines.launch
-class UserViewModel(private val userRepository: UserRepository): ViewModel() {
+
+class UserViewModel(private val userRepository: UserRepository): MyViewModel() {
 
     var name = mutableStateOf("")
     val surname = mutableStateOf("")
     val email = mutableStateOf("")
     val password = mutableStateOf("")
+
     fun createUser() = viewModelScope.launch {
         val user = User(
             name = name.value,
@@ -29,13 +31,27 @@ class UserViewModel(private val userRepository: UserRepository): ViewModel() {
             email = email.value,
             password = password.value,
             role = "USER",
-            photo = R.drawable.img_2
+            photo = R.drawable.img_1
         )
-        userRepository.createUser(user)
+        runInScope(
+            actionSuccess = {
+                userRepository.createUser(user)
+            }
+        )
     }
-    fun authUser() = viewModelScope.launch {
-        val user = userRepository.authUser(UserRemoteSignIn(email.value, password.value))
-        GlobalUser.getInstance().setUser(user)
+
+    fun authUser() {
+        if(email.value != "" && password.value != ""){
+            runInScope(
+                actionSuccess = {
+                    val user = userRepository.authUser(UserRemoteSignIn(email.value, password.value))
+                    GlobalUser.getInstance().setUser(user)
+                },
+                actionError = {
+                    GlobalUser.getInstance().setUser(null)
+                }
+            )
+        }
     }
 
     fun isValidEmail(email: String): Boolean {

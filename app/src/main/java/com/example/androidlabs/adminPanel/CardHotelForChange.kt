@@ -1,5 +1,6 @@
 package com.example.androidlabs.adminPanel
 
+import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -22,6 +23,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
@@ -34,11 +36,19 @@ import com.example.androidlabs.DB.models.Hotel
 import com.example.androidlabs.DB.viewModels.AppViewModelProvider
 import com.example.androidlabs.DB.viewModels.HotelViewModel
 import com.example.androidlabs.R
+import com.example.androidlabs.api.ApiStatus
+import com.example.androidlabs.profileScreen.circular
 import com.google.gson.Gson
 
 
 @Composable
 fun CardHotelForChange(item: Hotel, navController: NavHostController, hotelViewModel: HotelViewModel = viewModel(factory = AppViewModelProvider.Factory)) {
+    val context = LocalContext.current
+    when(hotelViewModel.apiStatus){
+        ApiStatus.LOADING -> circular()
+        ApiStatus.ERROR -> Toast.makeText(context, "Нельзя удалить отель который забронировали: " + hotelViewModel.apiError, Toast.LENGTH_SHORT).show()
+        else -> {}
+    }
     Row(
         modifier = Modifier
             .fillMaxWidth()
