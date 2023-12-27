@@ -1,14 +1,11 @@
-package com.example.androidlabs.adminPanel
+package com.example.androidlabs.composeui.adminPanel
 
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -23,7 +20,6 @@ import androidx.compose.material.Text
 import androidx.compose.material.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
@@ -37,20 +33,23 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.androidlabs.DB.models.Hotel
+import com.example.androidlabs.businessLogic.viewModels.HotelViewModel
 import androidx.lifecycle.viewmodel.compose.viewModel
-import androidx.navigation.NavHostController
-import androidx.navigation.compose.rememberNavController
 import com.example.androidlabs.DB.models.PhotoManager
 import com.example.androidlabs.businessLogic.viewModels.AppViewModelProvider
-import com.example.androidlabs.businessLogic.viewModels.HotelViewModel
 import com.example.androidlabs.R
 
-
 @Composable
-fun AddPanel(navHostController: NavHostController, hotelViewModel: HotelViewModel = viewModel(factory = AppViewModelProvider.Factory)){
+fun ChangeHotel(hotel: Hotel, onBackClick: () -> Unit, hotelViewModel: HotelViewModel = viewModel(factory = AppViewModelProvider.Factory)) {
+    val name = remember { mutableStateOf(hotel.name) }
+    val price = remember{ mutableStateOf(hotel.price.toString()) }
+    val stars = remember{ mutableStateOf(hotel.stars.toString()) }
+    val location = remember{ mutableStateOf(hotel.location) }
+    val info = remember{ mutableStateOf(hotel.info) }
+    var img by remember { mutableStateOf(hotel.img) }
     val photoManager = PhotoManager()
     Row(
         modifier = Modifier
@@ -65,7 +64,7 @@ fun AddPanel(navHostController: NavHostController, hotelViewModel: HotelViewMode
             verticalArrangement = Arrangement.Center
         ) {
             Image(
-                painter = painterResource(id = hotelViewModel.img.value),
+                painter = painterResource(id = img),
                 contentDescription = "image",
                 contentScale = ContentScale.FillHeight,
                 modifier = Modifier
@@ -79,7 +78,7 @@ fun AddPanel(navHostController: NavHostController, hotelViewModel: HotelViewMode
                     contentColor = Color.White
                 ),
                 onClick = {
-                    hotelViewModel.img.value = photoManager.changePhoto(hotelViewModel.img.value)
+                    img = photoManager.changePhoto(img)
 
                 },
                 modifier = Modifier
@@ -87,11 +86,11 @@ fun AddPanel(navHostController: NavHostController, hotelViewModel: HotelViewMode
                     .padding(16.dp, 0.dp, 16.dp, 16.dp)
                     .height(50.dp)
             ) {
-                Text("Add image")
+                Text("Change image")
             }
             TextField(
-                value = hotelViewModel.name.value,
-                onValueChange = { hotelViewModel.name.value = it },
+                value = name.value,
+                onValueChange = { newValue -> name.value = newValue },
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(50.dp)
@@ -116,8 +115,8 @@ fun AddPanel(navHostController: NavHostController, hotelViewModel: HotelViewMode
             )
             Spacer(modifier = Modifier.height(16.dp))
             TextField(
-                value = hotelViewModel.stars.value,
-                onValueChange = { hotelViewModel.stars.value = it },
+                value = stars.value,
+                onValueChange = { stars.value = it },
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(50.dp)
@@ -143,8 +142,8 @@ fun AddPanel(navHostController: NavHostController, hotelViewModel: HotelViewMode
             Spacer(modifier = Modifier.height(16.dp))
 
             TextField(
-                value = hotelViewModel.location.value,
-                onValueChange = { hotelViewModel.location.value = it },
+                value = location.value,
+                onValueChange = { location.value = it },
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(50.dp)
@@ -173,8 +172,8 @@ fun AddPanel(navHostController: NavHostController, hotelViewModel: HotelViewMode
 
 
             TextField(
-                value = hotelViewModel.price.value,
-                onValueChange = { hotelViewModel.price.value = it },
+                value = price.value,
+                onValueChange = { price.value = it },
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(50.dp)
@@ -200,8 +199,8 @@ fun AddPanel(navHostController: NavHostController, hotelViewModel: HotelViewMode
             Spacer(modifier = Modifier.height(16.dp))
 
             TextField(
-                value = hotelViewModel.info.value,
-                onValueChange = { hotelViewModel.info.value = it },
+                value = info.value,
+                onValueChange = { info.value = it },
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(50.dp)
@@ -227,28 +226,30 @@ fun AddPanel(navHostController: NavHostController, hotelViewModel: HotelViewMode
 
             Button(
                 colors = ButtonDefaults.buttonColors(
-                    backgroundColor =colorResource(id = R.color.figma_blue),
+                    backgroundColor = colorResource(id = R.color.figma_blue),
                     contentColor = Color.White
                 ),
                 onClick = {
-                    hotelViewModel.insertHotel()
-                    navHostController.navigate("home")
-                },
+                    hotelViewModel.UpdateHotel(
+                        Hotel(
+                            hotelId = hotel.hotelId,
+                            name = name.value,
+                            price = price.value.toDouble(),
+                            img = img,
+                            stars = stars.value.toInt(),
+                            location = location.value,
+                            info = info.value
+                        )
+                    )
+                    onBackClick()
+                          },
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(16.dp)
+                    .padding(16.dp, 16.dp, 16.dp, 42.dp)
                     .height(50.dp)
             ) {
-                Text("Add hotel")
+                Text("Change hotel")
             }
         }
     }
-}
-
-@Preview(showBackground = true)
-@Composable
-fun AddPreview() {
-    //val navController = rememberNavController()
-    //AddPanel(navController)
-
 }

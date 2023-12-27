@@ -1,11 +1,14 @@
-package com.example.androidlabs.adminPanel
+package com.example.androidlabs.composeui.adminPanel
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -20,6 +23,7 @@ import androidx.compose.material.Text
 import androidx.compose.material.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
@@ -33,23 +37,20 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.androidlabs.DB.models.Hotel
-import com.example.androidlabs.businessLogic.viewModels.HotelViewModel
 import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.NavHostController
+import androidx.navigation.compose.rememberNavController
 import com.example.androidlabs.DB.models.PhotoManager
 import com.example.androidlabs.businessLogic.viewModels.AppViewModelProvider
+import com.example.androidlabs.businessLogic.viewModels.HotelViewModel
 import com.example.androidlabs.R
 
+
 @Composable
-fun ChangeHotel(hotel: Hotel, onBackClick: () -> Unit, hotelViewModel: HotelViewModel = viewModel(factory = AppViewModelProvider.Factory)) {
-    val name = remember { mutableStateOf(hotel.name) }
-    val price = remember{ mutableStateOf(hotel.price.toString()) }
-    val stars = remember{ mutableStateOf(hotel.stars.toString()) }
-    val location = remember{ mutableStateOf(hotel.location) }
-    val info = remember{ mutableStateOf(hotel.info) }
-    var img by remember { mutableStateOf(hotel.img) }
+fun AddPanel(navHostController: NavHostController, hotelViewModel: HotelViewModel = viewModel(factory = AppViewModelProvider.Factory)){
     val photoManager = PhotoManager()
     Row(
         modifier = Modifier
@@ -64,7 +65,7 @@ fun ChangeHotel(hotel: Hotel, onBackClick: () -> Unit, hotelViewModel: HotelView
             verticalArrangement = Arrangement.Center
         ) {
             Image(
-                painter = painterResource(id = img),
+                painter = painterResource(id = hotelViewModel.img.value),
                 contentDescription = "image",
                 contentScale = ContentScale.FillHeight,
                 modifier = Modifier
@@ -78,7 +79,7 @@ fun ChangeHotel(hotel: Hotel, onBackClick: () -> Unit, hotelViewModel: HotelView
                     contentColor = Color.White
                 ),
                 onClick = {
-                    img = photoManager.changePhoto(img)
+                    hotelViewModel.img.value = photoManager.changePhoto(hotelViewModel.img.value)
 
                 },
                 modifier = Modifier
@@ -86,11 +87,11 @@ fun ChangeHotel(hotel: Hotel, onBackClick: () -> Unit, hotelViewModel: HotelView
                     .padding(16.dp, 0.dp, 16.dp, 16.dp)
                     .height(50.dp)
             ) {
-                Text("Change image")
+                Text("Add image")
             }
             TextField(
-                value = name.value,
-                onValueChange = { newValue -> name.value = newValue },
+                value = hotelViewModel.name.value,
+                onValueChange = { hotelViewModel.name.value = it },
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(50.dp)
@@ -115,8 +116,8 @@ fun ChangeHotel(hotel: Hotel, onBackClick: () -> Unit, hotelViewModel: HotelView
             )
             Spacer(modifier = Modifier.height(16.dp))
             TextField(
-                value = stars.value,
-                onValueChange = { stars.value = it },
+                value = hotelViewModel.stars.value,
+                onValueChange = { hotelViewModel.stars.value = it },
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(50.dp)
@@ -142,8 +143,8 @@ fun ChangeHotel(hotel: Hotel, onBackClick: () -> Unit, hotelViewModel: HotelView
             Spacer(modifier = Modifier.height(16.dp))
 
             TextField(
-                value = location.value,
-                onValueChange = { location.value = it },
+                value = hotelViewModel.location.value,
+                onValueChange = { hotelViewModel.location.value = it },
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(50.dp)
@@ -172,8 +173,8 @@ fun ChangeHotel(hotel: Hotel, onBackClick: () -> Unit, hotelViewModel: HotelView
 
 
             TextField(
-                value = price.value,
-                onValueChange = { price.value = it },
+                value = hotelViewModel.price.value,
+                onValueChange = { hotelViewModel.price.value = it },
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(50.dp)
@@ -199,8 +200,8 @@ fun ChangeHotel(hotel: Hotel, onBackClick: () -> Unit, hotelViewModel: HotelView
             Spacer(modifier = Modifier.height(16.dp))
 
             TextField(
-                value = info.value,
-                onValueChange = { info.value = it },
+                value = hotelViewModel.info.value,
+                onValueChange = { hotelViewModel.info.value = it },
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(50.dp)
@@ -226,30 +227,28 @@ fun ChangeHotel(hotel: Hotel, onBackClick: () -> Unit, hotelViewModel: HotelView
 
             Button(
                 colors = ButtonDefaults.buttonColors(
-                    backgroundColor = colorResource(id = R.color.figma_blue),
+                    backgroundColor =colorResource(id = R.color.figma_blue),
                     contentColor = Color.White
                 ),
                 onClick = {
-                    hotelViewModel.UpdateHotel(
-                        Hotel(
-                            hotelId = hotel.hotelId,
-                            name = name.value,
-                            price = price.value.toDouble(),
-                            img = img,
-                            stars = stars.value.toInt(),
-                            location = location.value,
-                            info = info.value
-                        )
-                    )
-                    onBackClick()
-                          },
+                    hotelViewModel.insertHotel()
+                    navHostController.navigate("home")
+                },
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(16.dp, 16.dp, 16.dp, 42.dp)
+                    .padding(16.dp)
                     .height(50.dp)
             ) {
-                Text("Change hotel")
+                Text("Add hotel")
             }
         }
     }
+}
+
+@Preview(showBackground = true)
+@Composable
+fun AddPreview() {
+    //val navController = rememberNavController()
+    //AddPanel(navController)
+
 }

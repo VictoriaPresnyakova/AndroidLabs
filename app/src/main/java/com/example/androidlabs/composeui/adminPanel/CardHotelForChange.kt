@@ -1,4 +1,4 @@
-package com.example.androidlabs.adminPanel
+package com.example.androidlabs.composeui.adminPanel
 
 import android.widget.Toast
 import androidx.compose.foundation.Image

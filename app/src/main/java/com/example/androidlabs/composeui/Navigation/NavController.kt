@@ -16,10 +16,10 @@ import com.example.androidlabs.composeui.profileScreen.profile.Person
 import com.example.androidlabs.composeui.profileScreen.profile.ProfileScreen
 import com.example.androidlabs.composeui.profileScreen.signIn.LoginScreen
 import com.example.androidlabs.composeui.profileScreen.signUp.SignUpScreen
-import com.example.androidlabs.adminPanel.AddPanel
-import com.example.androidlabs.adminPanel.AdminPanel
-import com.example.androidlabs.adminPanel.ChangeHotel
-import com.example.androidlabs.adminPanel.ChangePanel
+import com.example.androidlabs.composeui.adminPanel.AddPanel
+import com.example.androidlabs.composeui.adminPanel.AdminPanel
+import com.example.androidlabs.composeui.adminPanel.ChangeHotel
+import com.example.androidlabs.composeui.adminPanel.ChangePanel
 import com.google.gson.Gson
 
 @Composable

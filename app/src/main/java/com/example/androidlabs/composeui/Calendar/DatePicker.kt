@@ -1,4 +1,4 @@
-package com.example.androidlabs.Calendar
+package com.example.androidlabs.composeui.Calendar
 
 import android.app.DatePickerDialog
 import android.os.Bundle

@@ -1,4 +1,4 @@
-package com.example.androidlabs.adminPanel
+package com.example.androidlabs.composeui.adminPanel
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
