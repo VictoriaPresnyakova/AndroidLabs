@@ -36,10 +36,10 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.androidlabs.DB.models.Hotel
-import com.example.androidlabs.DB.viewModels.HotelViewModel
+import com.example.androidlabs.businessLogic.viewModels.HotelViewModel
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.androidlabs.DB.models.PhotoManager
-import com.example.androidlabs.DB.viewModels.AppViewModelProvider
+import com.example.androidlabs.businessLogic.viewModels.AppViewModelProvider
 import com.example.androidlabs.R
 
 @Composable

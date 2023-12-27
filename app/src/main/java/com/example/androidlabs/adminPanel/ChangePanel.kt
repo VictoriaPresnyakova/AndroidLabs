@@ -15,13 +15,13 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import androidx.paging.compose.collectAsLazyPagingItems
-import com.example.androidlabs.DB.viewModels.AppViewModelProvider
-import com.example.androidlabs.DB.viewModels.HotelViewModel
+import com.example.androidlabs.businessLogic.viewModels.AppViewModelProvider
+import com.example.androidlabs.businessLogic.viewModels.HotelViewModel
 
 
 @Composable
 fun ChangePanel(navHostController: NavHostController, hotelViewModel: HotelViewModel = viewModel(factory = AppViewModelProvider.Factory)){
-    val list = hotelViewModel.HotelList.collectAsLazyPagingItems()
+    val list = hotelViewModel.hotelList.collectAsState().value.collectAsLazyPagingItems()
     Column(
         modifier = Modifier
             .fillMaxSize()

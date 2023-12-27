@@ -30,4 +30,7 @@ interface HotelDao {
 
     @Query("DELETE FROM Hotel")
     suspend fun deleteAll()
+
+    @Query("SELECT * FROM Hotel WHERE LOWER(Name) LIKE '%' || LOWER(:searchString)")
+    fun findHotelsByName(searchString: String): PagingSource<Int, Hotel>
 }

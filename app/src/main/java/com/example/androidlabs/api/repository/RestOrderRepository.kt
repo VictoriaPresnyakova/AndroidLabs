@@ -2,7 +2,7 @@ package com.example.androidlabs.api.repository
 
 import com.example.androidlabs.DB.models.Hotel
 import com.example.androidlabs.DB.models.Order
-import com.example.androidlabs.DB.repository.OrderRepository
+import com.example.androidlabs.businessLogic.repository.OrderRepository
 import com.example.androidlabs.api.BackendService
 import com.example.androidlabs.api.model.toHotel
 import com.example.androidlabs.api.model.toOrder

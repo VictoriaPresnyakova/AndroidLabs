@@ -1,5 +1,5 @@
 import com.example.androidlabs.DB.models.User
-import com.example.androidlabs.DB.repository.UserRepository
+import com.example.androidlabs.businessLogic.repository.UserRepository
 import com.example.androidlabs.api.BackendService
 import com.example.androidlabs.api.model.UserRemoteSignIn
 import com.example.androidlabs.api.model.toUser

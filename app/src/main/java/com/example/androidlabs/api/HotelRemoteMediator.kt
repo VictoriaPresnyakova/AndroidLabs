@@ -9,8 +9,8 @@ import com.example.androidlabs.DB.AppDatabase
 import com.example.androidlabs.DB.models.Hotel
 import com.example.androidlabs.DB.models.RemoteKeyType
 import com.example.androidlabs.DB.models.RemoteKeys
-import com.example.androidlabs.DB.repository.HotelRepImpl
-import com.example.androidlabs.DB.repository.RemoteKeysRepositoryImpl
+import com.example.androidlabs.businessLogic.repository.HotelRepImpl
+import com.example.androidlabs.businessLogic.repository.RemoteKeysRepositoryImpl
 import com.example.androidlabs.api.model.toHotel
 
 import retrofit2.HttpException

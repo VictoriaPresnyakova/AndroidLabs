@@ -33,11 +33,11 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.example.androidlabs.DB.models.Hotel
-import com.example.androidlabs.DB.viewModels.AppViewModelProvider
-import com.example.androidlabs.DB.viewModels.HotelViewModel
+import com.example.androidlabs.businessLogic.viewModels.AppViewModelProvider
+import com.example.androidlabs.businessLogic.viewModels.HotelViewModel
 import com.example.androidlabs.R
 import com.example.androidlabs.api.ApiStatus
-import com.example.androidlabs.profileScreen.circular
+import com.example.androidlabs.composeui.profileScreen.circular
 import com.google.gson.Gson
 
 

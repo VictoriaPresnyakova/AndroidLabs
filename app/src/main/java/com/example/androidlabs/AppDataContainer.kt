@@ -3,11 +3,11 @@ package com.example.androidlabs
 import RestUserRepository
 import android.content.Context
 import com.example.androidlabs.DB.AppDatabase
-import com.example.androidlabs.DB.repository.HotelRepImpl
-import com.example.androidlabs.DB.repository.HotelRepository
-import com.example.androidlabs.DB.repository.OrderRepository
-import com.example.androidlabs.DB.repository.RemoteKeysRepositoryImpl
-import com.example.androidlabs.DB.repository.UserRepository
+import com.example.androidlabs.businessLogic.repository.HotelRepImpl
+import com.example.androidlabs.businessLogic.repository.HotelRepository
+import com.example.androidlabs.businessLogic.repository.OrderRepository
+import com.example.androidlabs.businessLogic.repository.RemoteKeysRepositoryImpl
+import com.example.androidlabs.businessLogic.repository.UserRepository
 import com.example.androidlabs.api.BackendService
 import com.example.androidlabs.api.repository.RestHotelRepository
 import com.example.androidlabs.api.repository.RestOrderRepository

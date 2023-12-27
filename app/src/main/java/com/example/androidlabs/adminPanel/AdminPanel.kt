@@ -20,7 +20,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.example.androidlabs.DB.models.RoleEnum
 import com.example.androidlabs.GlobalUser
-import com.example.androidlabs.profileScreen.signIn.LoginScreen
+import com.example.androidlabs.composeui.profileScreen.signIn.LoginScreen
 
 @Composable
 fun AdminPanel(navHostController: NavHostController) {
